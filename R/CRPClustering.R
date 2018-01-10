@@ -63,6 +63,7 @@ k_total <- 0
 #' @export
 crp_gibbs<- function(path="./data/data.csv", mu=c(0,0), sigma=0.5, sigma_table=12, burn_in=10, iteration=100) {
   path <- as.character(path)
+  new.env(parent=path)
   data <<- read.table(path, header=T, sep=",")
   data <<- as.matrix(data)
   data_length <<- nrow(data)

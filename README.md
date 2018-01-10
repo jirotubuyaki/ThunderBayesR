@@ -1,7 +1,4 @@
-# CRPClustering: An R package for Bayesian Nonparametric Chinese Restaurant Process Clustering with Entropy 
-[![Build Status](https://travis-ci.org/jirotubuyaki/Jdmbs.svg?branch=master)](https://travis-ci.org/jirotubuyaki/Jdmbs)
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/Jdmbs)](http://cran.r-project.org/package=Jdmbs)
-[![](http://cranlogs.r-pkg.org/badges/grand-total/Jdmbs)](http://cran.rstudio.com/web/packages/Jdmbs/index.html)
+# CRPClustering: An R package for Bayesian Nonparametric Chinese Restaurant Process Clustering with Entropy  
 ## Abstract
 Clustering is a scientific method which finds the clusters of data. And lots of methods are traditionally researched for long terms. Bayesian Nonparametric is a statistics which can treat models having infinite parameters. Chinese Restaurant Process is used in order to compose Dirichlet Process. The clustering which use Chinese Restaurant Process does not need to decide a number of clusters in advance. This algorithm automatically adjusts it. And this package can calculate clusters in addition to entropy as ambiguity of clusters.
 
@@ -10,29 +7,29 @@ Clustering is a traditional method in order to find clusters of data. And lots o
 
 ## Background
 #### Chinese Restaurant Process
-Chinese Restaurant Process is a metaphor looks like customers sit at a table in Chinese restaurant. All customers except for $x_i$ have allready sat at finite tables. New customer $x_i$ will sit at either a table which other customers have allready sat at or a new table. New customer tends to sit at a table which has a number of customers more than other tables. Probability equation is given by    
+Chinese Restaurant Process is a metaphor looks like customers sit at a table in Chinese restaurant. All customers except for x_i have allready sat at finite tables. New customer $x_i$ will sit at either a table which other customers have allready sat at or a new table. New customer tends to sit at a table which has a number of customers more than other tables. Probability equation is given by    
 
 ![equa](./readme_images/equation_1.png "eque")
 
-$n^{\backslash i}_{k}$ express the number of customers at table $k$. And $\alpha$ is a concentration parameter.
+n_k express the number of customers at table k. And α is a concentration parameter.
 
 #### Markov chain Monte Carlo methods for CRP Clustering
 Markov chain Monte Carlo methods (MCMC) is algorithmic methods[@Liu1994] to sample from posterior distribution. If conditional posterior distribution is given by models, it is the best way in order to acquire parameters as posterior distribution. Algorithm for this package is given by  
 
 lots of iterations continue on below.
 
-i) sampling $z_i$ for each i (i = 1,2, ・・・,n)
+i) sampling z_i$for each i (i = 1,2, ・・・,n)
 
 ![equa](./readme_images/equation_2.png "eque")
 
-ii) sampling $u_k$ for each k (k = 1,2, ・・・,∞)
+ii) sampling u_k for each k (k = 1,2, ・・・,∞)
 
 ![equa](./readme_images/equation_3.png "eque")
 
 First parts of iterations as burn in have error range. For that reason, burn in parts are abandoned.
 
 #### Cluster Entropy
-Entropy express ambiguity of clustering. As the result of simulation, data $x_i$ joins in particular table. From the total numbers $n_k$ of particular table $k$ at the last iteration, probability $p_k$ at each cluster $k$ is calculated. Entropy equation is given by
+Entropy express ambiguity of clustering. As the result of simulation, data x_i joins in particular table. From the total numbers n_k of particular table k at the last iteration, probability p_k at each cluster k is calculated. Entropy equation is given by
 
 ![equa](./readme_images/equation_4.png "eque")
 
@@ -73,7 +70,7 @@ This method calculates CRP Clustering.
 ・ sigma_table : a floating-point type of table position variance.  
 ・ burn_in : iteration numbers of burn in.  
 ・ iteration : iteration numbers.   
-・ z_result : a vector and express cluster numbers for each data $i$ 
+・ z_result : a vector and express cluster numbers for each data i  
 
 #### Visualization Methods
   
@@ -86,7 +83,7 @@ This method exhibits a two dimensional graph for the method "crp_gibbs".
 ・ z_result : the output of the method "crp_gibbs". It contains a number of cluster for each data.  
 
 ## Example
-Data is generated from three Normal distributions and mu_0 = (-1,1) , mu_1 = (-1.3,-1.3) , mu_2 = (1, -1) and sigma_0 = 0.3$ , sigma_1 = 0.02 , sigma_2 = 0.3. The result is plotted as graph and each data joined in any clusters. The graph is given by below. 
+Data is generated from three Normal distributions and mu_0 = (-1,1) , mu_1 = (-1.3,-1.3) , mu_2 = (1, -1) and sigma_0 = 0.3 , sigma_1 = 0.02 , sigma_2 = 0.3. The result is plotted as graph and each data joined in any clusters. The graph is given by below. 
 
 ![equa](./readme_images/figure_1.png "eque")
 

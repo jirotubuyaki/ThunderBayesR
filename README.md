@@ -87,7 +87,7 @@ Data is generated from three Normal distributions and mu_0 = (-1,1) , mu_1 = (-1
 
 ![equa](./readme_images/figure_1.png "eque")
 
-Figure 1. CRP Clustering Result
+　　　　　　　　　　Figure 1. CRP Clustering Result
 
 ## Conclusions
 Chinese Restaurant Process Clustering was implemented and explained how to use it. Computers resources is limited. Computer processing power is a the most important problem. And several improvements are planed. Please send suggestions and report bugs to okadaalgorithm@gmail.com.

@@ -1,4 +1,6 @@
 # CRPClustering: An R package for Bayesian Nonparametric Chinese Restaurant Process Clustering with Entropy  
+[![Build Status](https://travis-ci.org/jirotubuyaki/CRPClustering.svg?branch=master)](https://travis-ci.org/jirotubuyaki/CRPClustering)  
+
 ## Abstract
 Clustering is a scientific method which finds the clusters of data. And lots of methods are traditionally researched for long terms. Bayesian Nonparametric is a statistics which can treat models having infinite parameters. Chinese Restaurant Process is used in order to compose Dirichlet Process. The clustering which use Chinese Restaurant Process does not need to decide a number of clusters in advance. This algorithm automatically adjusts it. And this package can calculate clusters in addition to entropy as ambiguity of clusters.
 
@@ -87,7 +89,7 @@ Data is generated from three Normal distributions and mu_0 = (-1,1) , mu_1 = (-1
 
 ![equa](./readme_images/figure_1.png "eque")
 
-　　　　　　　　　　Figure 1. CRP Clustering Result
+　　　　　　　　Figure 1. CRP Clustering Result
 
 ## Conclusions
 Chinese Restaurant Process Clustering was implemented and explained how to use it. Computers resources is limited. Computer processing power is a the most important problem. And several improvements are planed. Please send suggestions and report bugs to okadaalgorithm@gmail.com.

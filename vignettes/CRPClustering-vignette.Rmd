@@ -1,0 +1,145 @@
+---
+title: "CRPClustering: An R package for Bayesian Nonparametric Chinese Restaurant Process Clustering with Entropy"
+subtitle: 'A Vignette'
+author: |
+  | Masashi Okada
+  | Okada Algorithm Private Invention Research Laboratory
+  | okadaalgorithm@gmail.com
+date: "CRPClustering version 1.0 `r Sys.Date()`"
+output:
+  pdf_document:
+    latex_engine: xelatex
+bibliography: citation.bib
+vignette: >
+  %\VignetteIndexEntry{How to use package CRPClustering}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Abstract
+Clustering is a scientific method which finds the clusters of data. And lots of methods are traditionally researched for long terms. Bayesian Nonparametric is a statistics which can treat models having infinite parameters. Chinese Restaurant Process is used in order to compose Dirichlet Process. The clustering which use Chinese Restaurant Process does not need to decide a number of clusters in advance. This algorithm automatically adjusts it. And this package can calculate clusters in addition to entropy as ambiguity of clusters.
+
+## Introduction
+Clustering is a traditional method in order to find clusters of data. And lots of methods are invented for several decades. The most popular method is called as K-mean[@Hartigan1979]. Kmean is a algorithmic way in order to search clusters of data. But its method needs to decide a number of clusters in advance. So if the data is both high dimensions and complex, deciding accurate numbers of clusters is difficult. And normal bayesian methods are too. For that reason, Bayesian Nonparametric methods is gradually important as computers are faster. In this package, we implement a Chinese Restaurant Process Clustering (CRP)[@Pitman1995]. CRP can compose infinite dimensional parameters as Dirichlet Process. It acts like a customers who sit at tables in restaurant and has probability to sit at a new table. As result, Its model always automates clustering. And we add the method which calculates entropy[@Elliott1999] of clusters into this package. It can check ambiguity of result. Then we explain the clustering model and how to use it in detail. finally, an example is explained.
+
+## Background
+#### Chinese Restaurant Process
+Chinese Restaurant Process is a metaphor looks like customers sit at a table in Chinese restaurant. All customers except for $x_i$ have allready sat at finite tables. New customer $x_i$ will sit at either a table which other customers have allready sat at or a new table. New customer tends to sit at a table which has a number of customers more than other tables. Probability equation is given by    
+
+$$
+\begin{split}
+  &p(z_i = k | x_{1:n},z^{\backslash i}_{1:n},\alpha,\mu_0,\rho_0,a_0,b_0)\\
+  &= \begin{cases}
+    p(x_i | \mu_k, \tau) \times \frac{n^{\backslash i}_{k}}{n - 1 + \alpha} \qquad if \quad k \in K^{K^{+}}(Z^{\backslash i}_{1:n})\\
+    p(x_i | \mu_k, \tau) \times \frac{\alpha}{n - 1 + \alpha} \qquad  \mu_k \sim N(\mu_0,(\tau \rho_0)^{-1} I) \qquad if \quad k \in |K^{+}(Z^{\backslash i}_{1:n})| + 1
+  \end{cases}
+\end{split}
+$$
+
+$n^{\backslash i}_{k}$ express the number of customers at table $k$. And $\alpha$ is a concentration parameter.
+
+#### Markov chain Monte Carlo methods for CRP Clustering
+Markov chain Monte Carlo methods (MCMC) is algorithmic methods[@Liu1994] to sample from posterior distribution. If conditional posterior distribution is given by models, it is the best way in order to acquire parameters as posterior distribution. Algorithm for this package is given by  
+
+lots of iterations continue on below.
+
+i) sampling $z_i$ for each $i$ $(i = 1,2, \cdots,n)$
+
+$$
+\begin{split}
+  z_i \sim p(z_i = k | x_{1:n},z^{\backslash i}_{1:n},\alpha,\mu_0,\rho_0,a_0,b_0)
+&= \begin{cases}
+    p(x_i | \mu_k, \tau) \times \frac{n^{\backslash i}_{k}}{n - 1 + \alpha} \\
+    p(x_i | \mu_k, \tau) \times \frac{\alpha}{n - 1 + \alpha} \qquad  \mu_k \sim N(\mu_0,(\tau \rho_0)^{-1} I)
+  \end{cases}
+\end{split}
+$$
+
+ii) sampling $u_k$ for each $k$ $(k = 1,2, \cdots ,\infty)$
+
+$$
+\begin{split}
+  \mu_k \sim p(\mu_k | x_{1:n},z_{1:n},\tau,\mu_0,\rho_0) = N(\mu_k | \frac{n_k}{n_k + \rho_0}\bar{x_k} + \frac{\rho_0}{n_k + \rho_0}\mu_0,(\tau(n_k + \rho \tau))^{-1} I) \\
+  \bar{x_k} = \frac{1}{n_k} \sum^{n}_{i=1} \delta(z_i = k)x_i
+\end{split}
+$$
+
+First parts of iterations as burn in have error range. For that reason, burn in parts are abandoned.
+
+#### Cluster Entropy
+Entropy express ambiguity of clustering. As the result of simulation, data $x_i$ joins in particular table. From the total numbers $n_k$ of particular table $k$ at the last iteration, probability $p_k$ at each cluster $k$ is calculated. Entropy equation is given by
+
+$$
+\begin{split}
+  H(x) = -\sum^{\infty}_{k=1}\frac{n_k}{n} \log_{2}\frac{n_k}{n}
+\end{split}
+$$
+
+## Installation
+If download from GitHub, you can use devtools by the commands:
+
+```
+> library(devtools)
+> install_github("jirotubuyaki/CRPClustering")
+```
+
+Once the packages are installed, it needs to be made accessible to the current R session by the commands:
+
+```
+> library(CRPClustering)
+```
+
+For online help facilities or the details of a particular command (such as the function crp_gibbs) you can type:
+
+```
+> help(package="CRPClustering")
+```
+
+## Method
+#### Calculating Methods for CRP Clustering 
+  
+```
+> z_result <- crp_gibbs(path="./data/data.csv", mu=c(0,0), sigma=0.5,
+                        sigma_table=12, burn_in=10, iteration=100)
+
+```
+  
+This method calculates CRP Clustering.  
+$\cdot$ path : a data path and file. data.csv is a comma separate file. And cols is a dimension of data.  
+$\cdot$ mu : a floating-point type of center points of data. If data is 3 dim, a vector of 3 elements like "c(2,4,7)"  
+$\cdot$ sigma : a floating-point type of data variance.  
+$\cdot$ sigma_table : a floating-point type of table position variance.  
+$\cdot$ burn_in : iteration numbers of burn in.  
+$\cdot$ iteration : iteration numbers.   
+$\cdot$ z_result : a vector and express cluster numbers for each data $i$ 
+
+#### Visualization Methods
+  
+```
+> crp_graph_2d(path="./data/data.csv", z_result)
+```
+  
+This method exhibits a two dimensional graph for the method "crp_gibbs".  
+$\cdot$ path : a data path and file. data.csv is a comma separate file. And cols is a dimension of data.  
+$\cdot$ z_result : the output of the method "crp_gibbs". It contains a number of cluster for each data.  
+
+## Example
+Data is generated from three Normal distributions and $\mu_0 = (-1,1)$ , $\mu_1 = (-1.3,-1.3)$ , $\mu_2 = (1, -1)$ and $\sigma_0 = 0.3$ , $\sigma_1 = 0.02$ , $\sigma_2 = 0.3$. The result is plotted as graph and each data joined in any clusters. The graph is given by below. 
+
+```{r fig.width=3.5,fig.height=3.5,fig.align="center",echo=FALSE}
+library(png)
+library(grid)
+img <- readPNG("./image2.png")
+ grid.raster(img)
+```
+\begin{center}
+Figure 1. CRP Clustering Result
+\end{center}
+
+## Conclusions
+Chinese Restaurant Process Clustering was implemented and explained how to use it. Computers resources is limited. Computer processing power is a the most important problem. And several improvements are planed. Please send suggestions and report bugs to okadaalgorithm@gmail.com.
+
+## Acknowledgments
+This activity would not have been possible without the support of my family and friends. To my family, thank you for lots of encouragement for me and inspiring me to follow my dreams. I am especially grateful to my parents, who supported me all aspects.  
+
+## References

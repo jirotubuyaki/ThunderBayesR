@@ -1,7 +1,5 @@
 language: r
 
-install: - R -e 'devtools::install_deps(dep = T)'
-
-r_github_packages: hadley/devtools
+r_github_packages: hadley/devtools@db7930a
 
 cache: packages

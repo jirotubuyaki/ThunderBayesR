@@ -8,7 +8,7 @@ Clustering is a traditional method in order to find clusters of data. And lots o
 
 ## Background
 ### Chinese Restaurant Process
-Chinese Restaurant Process is a metaphor looks like customers sit at a table in Chinese restaurant. All customers except for x_i have allready sat at finite tables. New customer $x_i$ will sit at either a table which other customers have allready sat at or a new table. New customer tends to sit at a table which has a number of customers more than other tables. Probability equation is given by    
+Chinese Restaurant Process is a metaphor looks like customers sit at a table in Chinese restaurant. All customers except for x_i have allready sat at finite tables. New customer x_i will sit at either a table which other customers have allready sat at or a new table. New customer tends to sit at a table which has a number of customers more than other tables. Probability equation is given by    
 
 ![equa](./readme_images/equation_1.png "eque")
 

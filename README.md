@@ -74,6 +74,7 @@ Let’s args be
   ・ ro_0 : a number of CRP mu change rate.  
   ・ burn_in : iteration numbers of burn in.  
   ・ iteration : iteration numbers.  
+  
 Let’s return be  
   ・ z_result : a vector express cluster numbers for each data i.   
 

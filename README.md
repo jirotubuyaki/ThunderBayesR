@@ -66,7 +66,7 @@ For online help facilities or the details of a particular command (such as the f
 
 This method calculates CRP Clustering.  
 Let’s args be  
-  ・ data : a matrix of data for clustering. Rows is data i and cols is dimensions of data.  
+  ・ data : a matrix of data for clustering. Rows are data i and cols are dimensions of data.  
   ・ mu : numbers of center points of data. If data is 3 dim, a vector of 3 elements like "c(2,4,7)".  
   ・ sigma : a number of data variance.  
   ・ sigma_table : a number of table position variance.  
@@ -86,7 +86,7 @@ Let’s return be
 
 This method exhibits a two dimensional graph for the method "crp_gibbs".  
 Let’s args be  
-  ・ data : a matrix of data for clustering. Rows is data i and cols is dimensions of data.  
+  ・ data : a matrix of data for clustering. Rows are data i and cols are dimensions of data.  
   ・ z_result : a vector expresses cluster number for each data i. And the output of the method "crp_gibbs".  
 
 ## Example

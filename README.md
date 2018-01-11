@@ -7,14 +7,14 @@ Clustering is a scientific method which finds the clusters of data. And lots of 
 Clustering is a traditional method in order to find clusters of data. And lots of methods are invented for several decades. The most popular method is called as K-mean[@Hartigan1979]. Kmean is a algorithmic way in order to search clusters of data. But its method needs to decide a number of clusters in advance. So if the data is both high dimensions and complex, deciding accurate numbers of clusters is difficult. And normal bayesian methods are too. For that reason, Bayesian Nonparametric methods is gradually important as computers are faster. In this package, we implement a Chinese Restaurant Process Clustering (CRP)[@Pitman1995]. CRP can compose infinite dimensional parameters as Dirichlet Process. It acts like a customers who sit at tables in restaurant and has probability to sit at a new table. As result, Its model always automates clustering. And we add the method which calculates entropy[@Elliott1999] of clusters into this package. It can check ambiguity of result. Then we explain the clustering model and how to use it in detail. finally, an example is explained.
 
 ## Background
-#### Chinese Restaurant Process
+### Chinese Restaurant Process
 Chinese Restaurant Process is a metaphor looks like customers sit at a table in Chinese restaurant. All customers except for x_i have allready sat at finite tables. New customer $x_i$ will sit at either a table which other customers have allready sat at or a new table. New customer tends to sit at a table which has a number of customers more than other tables. Probability equation is given by    
 
 ![equa](./readme_images/equation_1.png "eque")
 
 n_k express the number of customers at table k. And α is a concentration parameter.
 
-#### Markov chain Monte Carlo methods for CRP Clustering
+### Markov chain Monte Carlo methods for CRP Clustering
 Markov chain Monte Carlo methods (MCMC) is algorithmic methods[@Liu1994] to sample from posterior distribution. If conditional posterior distribution is given by models, it is the best way in order to acquire parameters as posterior distribution. Algorithm for this package is given by  
 
 lots of iterations continue on below.
@@ -29,7 +29,7 @@ ii) sampling u_k for each k (k = 1,2, ・・・,∞)
 
 First parts of iterations as burn in have error range. For that reason, burn in parts are abandoned.
 
-#### Cluster Entropy
+### Cluster Entropy
 Entropy express ambiguity of clustering. As the result of simulation, data x_i joins in particular table. From the total numbers n_k of particular table k at the last iteration, probability p_k at each cluster k is calculated. Entropy equation is given by
 
 ![equa](./readme_images/equation_4.png "eque")

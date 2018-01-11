@@ -41,9 +41,9 @@ $n^{\backslash i}_{k}$ expresses the number of customers at table $k$. And $\alp
 #### Markov chain Monte Carlo methods for CRP Clustering
 Markov chain Monte Carlo methods (MCMC) are algorithmic methods[@Liu1994] to sample from posterior distributions. If conditional posterior distributions are given by models, it is the best way in order to acquire parameters as posterior distributions. Algorithm for this package is given by  
 
-lots of iterations continue on below.
+Lots of iterations continue on below.
 
-i) sampling $z_i$ for each $i$ $(i = 1,2, \cdots,n)$
+i) Sampling $z_i$ for each $i$ $(i = 1,2, \cdots,n)$
 
 $$
 \begin{split}
@@ -56,7 +56,7 @@ $$
 \end{split}
 $$
 
-ii) sampling $u_k$ for each $k$ $(k = 1,2, \cdots ,\infty)$
+ii) Sampling $u_k$ for each $k$ $(k = 1,2, \cdots ,\infty)$
 
 $$
 \begin{split}
@@ -65,7 +65,7 @@ $$
 \end{split}
 $$
 
-First several durations of iterations called burn_in are error ranges. For that reason, burn_in durations are abandoned.
+A first several durations of iterations called burn_in are error ranges. For that reason, burn_in durations are abandoned.
 
 #### Cluster Entropy
 Entropy expresses ambiguity of clustering. As the result of simulation, data $x_i$ joins in a particular table. From the total numbers $n_k$ of the particular table $k$ at the last iteration, probability $p_k$ at each cluster $k$ is calculated. Entropy equation is given by

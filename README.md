@@ -17,13 +17,13 @@ n_k expresses the number of customers at table k. And α is a concentration para
 ### Markov chain Monte Carlo methods for CRP Clustering
 Markov chain Monte Carlo methods (MCMC) are algorithmic methods[@Liu1994] to sample from posterior distributions. If conditional posterior distributions are given by models, it is the best way in order to acquire parameters as posterior distributions. Algorithm for this package is given by  
 
-lots of iterations continue on below.
+Lots of iterations continue on below.
 
-i) sampling z_i for each i (i = 1,2, ・・・,n)
+i) Sampling z_i for each i (i = 1,2, ・・・,n)
 
 ![equa](./readme_images/equation_2.png "eque")
 
-ii) sampling u_k for each k (k = 1,2, ・・・,∞)
+ii) Sampling u_k for each k (k = 1,2, ・・・,∞)
 
 ![equa](./readme_images/equation_3.png "eque")
 

@@ -56,37 +56,37 @@ For online help facilities or the details of a particular command (such as the f
 ```
 
 ## Method
-#### Calculating Methods for CRP Clustering 
-  
+#### Calculating Methods for CRP Clustering
+
 ```
 > z_result <- crp_gibbs(data, mu=c(0,0), sigma=0.5, sigma_table=12,
                         alpha=1.0, ro_0=0.1 burn_in=10, iteration=100)
 
 ```
-  
+
 This method calculates CRP Clustering.  
 ・ data : a matrix of data for clustering. Rows is data $i$ and cols is dimensions of data.     
-・ mu : numbers of center points of data. If data is 3 dim, a vector of 3 elements like "c(2,4,7)"  
+・ mu : numbers of center points of data. If data is 3 dim, a vector of 3 elements like "c(2,4,7)".  
 ・ sigma : a number of data variance.  
 ・ sigma_table : a number of table position variance.  
 ・ alpha : a number of CRP concentrate rate.  
 ・ ro_0 : a number of CRP mu change rate.  
 ・ burn_in : iteration numbers of burn in.  
 ・ iteration : iteration numbers.   
-・ z_result : a vector express cluster numbers for each data i
+・ z_result : a vector express cluster numbers for each data i.  
 
 #### Visualization Methods
-  
+
 ```
 > crp_graph_2d(data, z_result)
 ```
-  
+
 This method exhibits a two dimensional graph for the method "crp_gibbs".  
 ・ data : a matrix of data for clustering. Rows is data $i$ and cols is dimensions of data.  
 ・ z_result : a vector express cluster number for each data i. And the output of the method "crp_gibbs".  
 
 ## Example
-Data is generated from three Normal distributions and mu_0 = (-1,1) , mu_1 = (-1.3,-1.3) , mu_2 = (1, -1) and sigma_0 = 0.3 , sigma_1 = 0.02 , sigma_2 = 0.3. The result is plotted as graph and each data joined in any clusters. The graph is given by below. 
+Data is generated from three Normal distributions and mu_0 = (-1,1) , mu_1 = (-1.3,-1.3) , mu_2 = (1, -1) and sigma_0 = 0.3 , sigma_1 = 0.02 , sigma_2 = 0.3. The result is plotted as graph and each data joined in any clusters. The graph is given by below.
 
 ![equa](./readme_images/figure_1.png "eque")
 

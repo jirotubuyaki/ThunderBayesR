@@ -7,7 +7,7 @@
 #
 #
 # Description: Chinese Restaurant Process is used in order to compose Dirichlet
-# Process. The clustering which use Chinese Restaurant Process does not need to
+# Process. The clustering which uses Chinese Restaurant Process does not need to
 # decide a number of clusters in advance. This algorithm automatically adjusts
 # it. And this package calculates ambiguity as entropy.
 
@@ -25,15 +25,15 @@ library(randomcoloR)
 #' @import stats
 #' @import grid
 #' @importFrom utils read.table
-#' @param data : a matrix of data for clustering. Rows is data_i and cols is dimensions of data.
-#' @param mu : numbers of center points of data. if data is 3 dimensions, a vector of 3 elements like =c(2,4,2).    
-#' @param sigma : a number of data variance.  
-#' @param sigma_table : a number of CRP variance.  
+#' @param data : a matrix of data for clustering. Rows are data_i and cols are dimensions of data.
+#' @param mu : numbers of center points of data. If data is 3 dimensions, a vector of 3 elements like c(2,4,2).
+#' @param sigma : a number of data variance.
+#' @param sigma_table : a number of CRP variance.
 #' @param alpha : a number of CRP concentrate rate.
 #' @param ro_0 : a number of CRP mu change rate.
-#' @param burn_in :  iteration number of burn in.  
-#' @param iteration : iteration number.   
-#' @return z_result : a vector express cluster a number for each data i.
+#' @param burn_in :  a iteration number of burn in.
+#' @param iteration : a iteration number.
+#' @return z_result : a vector expresses cluster numbers for each data i.
 #' @examples
 #' z_result <- crp_gibbs(matrix(c(0.1,0.1,0.2,0.2,0.3,0.3,1.4,1.4,1.5,1.5),2,2),
 #'  mu=c(0,0), sigma=0.5, sigma_table=12, alpha=1, ro_0=0.1, burn_in=10, iteration=100)
@@ -42,7 +42,7 @@ crp_gibbs<- function(data, mu=c(0,0), sigma=0.5, sigma_table=12, alpha=1, ro_0=0
 
   data_length <- nrow(data)
   dim <- ncol(data)
-  
+
   mu_0 <- mu
   sigma_0_c <- rep(c(sigma,rep(0,dim)),dim)
   sigma_0 <- matrix(sigma_0_c, dim, dim)
@@ -92,7 +92,7 @@ crp_gibbs<- function(data, mu=c(0,0), sigma=0.5, sigma_table=12, alpha=1, ro_0=0
             K_count <- K_count + 1
             data_k <- rbind(data_k, array(0,dim=c(1, dim)))
             mu_k <- rbind(mu_k, array(0,dim=c(1, dim)))
-            
+
             n_k[k] <- 0
           }
           z[1,i] <- k
@@ -159,9 +159,9 @@ crp_gibbs<- function(data, mu=c(0,0), sigma=0.5, sigma_table=12, alpha=1, ro_0=0
     }
     z_result[i] <- which.max(z_count[i, ])
   }
-  
+
   n_k_result <- array(0,dim=c(K_count + 1))
-  for(i in 1 : data_length){ 
+  for(i in 1 : data_length){
       n_k_result[z_result[i]] <- n_k_result[z_result[i]] + 1
   }
   k_total <- 0
@@ -172,7 +172,7 @@ crp_gibbs<- function(data, mu=c(0,0), sigma=0.5, sigma_table=12, alpha=1, ro_0=0
     }
   }
   print(paste("Entropy All : ", -1 * entropy_all))
-  print(paste("The Number of Total Clusters  : ", k_total)) 
+  print(paste("The Number of Total Clusters  : ", k_total))
   return(invisible(z_result))
 }
 
@@ -180,8 +180,8 @@ crp_gibbs<- function(data, mu=c(0,0), sigma=0.5, sigma_table=12, alpha=1, ro_0=0
 #' @import randomcoloR
 #' @import graphics
 #' @import stats
-#' @param data : a matrix of data for clustering. Rows is data_i and cols is dimensions of data. 
-#' @param z_result : a vector express cluster number for each data i. And the output of the method "crp_gibbs".  
+#' @param data : a matrix of data for clustering. Rows are data_i and cols are dimensions of data.
+#' @param z_result : a vector expresses cluster numbers for each data i. And the output of the method "crp_gibbs".
 #' @examples
 #' crp_graph_2d(matrix(c(0.1,0.1,0.2,0.2,0.3,0.3,1.4,1.4,1.5,1.5),2,2), c(1,1,2,2,2))
 #' @export

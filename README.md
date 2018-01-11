@@ -27,7 +27,7 @@ ii) sampling u_k for each k (k = 1,2, ・・・,∞)
 
 ![equa](./readme_images/equation_3.png "eque")
 
-First parts of iterations as burn in have error ranges. For that reason, burn in parts are abandoned.
+First several durations of iterations called burn_in are error ranges. For that reason, burn_in durations are abandoned.  
 
 ### Cluster Entropy
 Entropy expresses ambiguity of clustering. As the result of simulation, data x_i joins in a particular table. From the total numbers n_k of the particular table k at the last iteration, probability p_k at each cluster k is calculated. Entropy equation is given by

@@ -7,9 +7,9 @@
 crp_graph_2d(data, z_result)
 }
 \arguments{
-\item{data}{: a matrix of data for clustering. Rows is data_i and cols is dimensions of data.}
+\item{data}{: a matrix of data for clustering. Rows are data_i and cols are dimensions of data.}
 
-\item{z_result}{: a vector express cluster number for each data i. And the output of the method "crp_gibbs".}
+\item{z_result}{: a vector expresses cluster numbers for each data i. And the output of the method "crp_gibbs".}
 }
 \description{
 CRP Clustering Visualization

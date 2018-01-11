@@ -7,7 +7,7 @@ Authors@R: c(
   person("Masashi", "Okada", role = c("aut", "cre"), email="okadaalgorithm@gmail.com")
   )
 Maintainer: Masashi Okada <okadaalgorithm@gmail.com>
-Description: Chinese Restaurant Process is used in order to compose Dirichlet Process. The clustering which use Chinese Restaurant Process does not need to decide a number of clusters in advance. This algorithm automatically adjusts it. And this package calculates ambiguity as entropy.
+Description: Chinese Restaurant Process [Pitman (1995) <doi:10.1007/BF01213386>] is used in order to compose Dirichlet Process [Ferguson (1973) <doi:10.1214/aos/1176342360>]. The clustering which uses Chinese Restaurant Process does not need to decide a number of clusters in advance. This algorithm automatically adjusts it. And this package calculates ambiguity of the clusters as entropy [Yngvason (1999) <doi:10.1016/S0370-1573(98)00082-9>].
 Depends: R (>= 3.4.2)
 License: GPL (>= 2)
 Imports: MASS, mvtnorm, randomcoloR, graphics, stats, utils, png

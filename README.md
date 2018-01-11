@@ -19,7 +19,7 @@ Markov chain Monte Carlo methods (MCMC) is algorithmic methods[@Liu1994] to samp
 
 lots of iterations continue on below.
 
-i) sampling z_i$for each i (i = 1,2, ・・・,n)
+i) sampling z_i for each i (i = 1,2, ・・・,n)
 
 ![equa](./readme_images/equation_2.png "eque")
 

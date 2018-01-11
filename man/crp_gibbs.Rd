@@ -10,7 +10,7 @@ crp_gibbs(data, mu = c(0, 0), sigma = 0.5, sigma_table = 12, alpha = 1,
 \arguments{
 \item{data}{: a matrix of data for clustering. Rows is data_i and cols is dimensions of data.}
 
-\item{mu}{: numbers of center points of data. if data is 3 dimensions, a vector of 3 elements like =c(2,4,2)}
+\item{mu}{: numbers of center points of data. if data is 3 dimensions, a vector of 3 elements like =c(2,4,2).}
 
 \item{sigma}{: a number of data variance.}
 

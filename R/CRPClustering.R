@@ -26,7 +26,7 @@ library(randomcoloR)
 #' @import grid
 #' @importFrom utils read.table
 #' @param data : a matrix of data for clustering. Rows is data_i and cols is dimensions of data.
-#' @param mu : numbers of center points of data. if data is 3 dimensions, a vector of 3 elements like =c(2,4,2)    
+#' @param mu : numbers of center points of data. if data is 3 dimensions, a vector of 3 elements like =c(2,4,2).    
 #' @param sigma : a number of data variance.  
 #' @param sigma_table : a number of CRP variance.  
 #' @param alpha : a number of CRP concentrate rate.

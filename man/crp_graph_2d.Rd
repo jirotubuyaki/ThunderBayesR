@@ -4,13 +4,16 @@
 \alias{crp_graph_2d}
 \title{CRP Clustering Visualization}
 \usage{
-crp_graph_2d(path = "./data/data.csv", z_result)
+crp_graph_2d(data, z_result)
 }
 \arguments{
-\item{path}{: a data path and data. data.csv is a comma separate file. And cols is a dimension of data.}
+\item{data}{: a matrix of data for clustering. Rows is data_i and cols is dimensions of data.}
 
-\item{z_result}{: the output of the method "crp_gibbs".}
+\item{z_result}{: a vector express cluster number for each data i. And the output of the method "crp_gibbs".}
 }
 \description{
 CRP Clustering Visualization
+}
+\examples{
+crp_graph_2d(matrix(c(0.1,0.1,0.2,0.2,0.3,0.3,1.4,1.4,1.5,1.5),2,2), c(1,1,2,2,2))
 }

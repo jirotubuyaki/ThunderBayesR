@@ -4,25 +4,33 @@
 \alias{crp_gibbs}
 \title{Markov chain Monte Carlo methods for CRP Clustering}
 \usage{
-crp_gibbs(path = "./data/data.csv", mu = c(0, 0), sigma = 0.5,
-  sigma_table = 12, burn_in = 10, iteration = 100)
+crp_gibbs(data, mu = c(0, 0), sigma = 0.5, sigma_table = 12, alpha = 1,
+  ro_0 = 0.1, burn_in = 10, iteration = 100)
 }
 \arguments{
-\item{path}{: a data path and data. data.csv is a comma separate file. And cols is a dimension of data.}
+\item{data}{: a matrix of data for clustering. Rows is data_i and cols is dimensions of data.}
 
-\item{mu}{: a floating-point type of center points of data. if data is 3 dimensions, a vector of 3 elements like =c(2,4,2)}
+\item{mu}{: numbers of center points of data. if data is 3 dimensions, a vector of 3 elements like =c(2,4,2)}
 
-\item{sigma}{: a floating-point type of data variance.}
+\item{sigma}{: a number of data variance.}
 
-\item{sigma_table}{: a floating-point type of table position variance.}
+\item{sigma_table}{: a number of CRP variance.}
 
-\item{burn_in}{:  iteration numbers of burn in.}
+\item{alpha}{: a number of CRP concentrate rate.}
 
-\item{iteration}{: iteration numbers.}
+\item{ro_0}{: a number of CRP mu change rate.}
+
+\item{burn_in}{:  iteration number of burn in.}
+
+\item{iteration}{: iteration number.}
 }
 \value{
-z_result : a vector and express cluster numbers for each data i
+z_result : a vector express cluster a number for each data i.
 }
 \description{
 Markov chain Monte Carlo methods for CRP Clustering
+}
+\examples{
+z_result <- crp_gibbs(matrix(c(0.1,0.1,0.2,0.2,0.3,0.3,1.4,1.4,1.5,1.5),2,2),
+ mu=c(0,0), sigma=0.5, sigma_table=12, alpha=1, ro_0=0.1, burn_in=10, iteration=100)
 }

@@ -1,5 +1,5 @@
 language: r
 
-r_github_packages: hadley/devtools@db7930a
+r_github_packages: hadley/devtools
 
 cache: packages

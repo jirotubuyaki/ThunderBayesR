@@ -65,7 +65,7 @@ For online help facilities or the details of a particular command (such as the f
 ```
 
 This method calculates CRP Clustering.  
-・ data : a matrix of data for clustering. Rows is data $i$ and cols is dimensions of data.     
+・ data : a matrix of data for clustering. Rows is data i and cols is dimensions of data.  
 ・ mu : numbers of center points of data. If data is 3 dim, a vector of 3 elements like "c(2,4,7)".  
 ・ sigma : a number of data variance.  
 ・ sigma_table : a number of table position variance.  
@@ -82,7 +82,7 @@ This method calculates CRP Clustering.
 ```
 
 This method exhibits a two dimensional graph for the method "crp_gibbs".  
-・ data : a matrix of data for clustering. Rows is data $i$ and cols is dimensions of data.  
+・ data : a matrix of data for clustering. Rows is data i and cols is dimensions of data.  
 ・ z_result : a vector express cluster number for each data i. And the output of the method "crp_gibbs".  
 
 ## Example
@@ -99,7 +99,10 @@ Chinese Restaurant Process Clustering was implemented and explained how to use i
 This activity would not have been possible without the support of my family and friends. To my family, thank you for lots of encouragement for me and inspiring me to follow my dreams. I am especially grateful to my parents, who supported me all aspects.  
 
 ## References
-Hartigan, M. A., J. A.; Wong. 1979. “Algorithm as 136: A K-Means Clustering Algorithm,” Journal of the Royal Statistical Society, SeriesC. 28 (1): 100–108. JSTOR 2346830.  
-Liu, Jun S. 1994. “The Collapsed Gibbs Sampler in Bayesian Computations with Applications to a Gene Regulation Problem,” Journal of the American Statistical Association 89 (427): 958–966.  
+Hartigan, M. A., J. A.; Wong. 1979. “Algorithm as 136: A K-Means Clustering Algorithm,” Journal of the Royal Statistical Society, SeriesC. 28 (1): 100–108. JSTOR 2346830. 
+  
+Liu, Jun S. 1994. “The Collapsed Gibbs Sampler in Bayesian Computations with Applications to a Gene Regulation Problem,” Journal of the American Statistical Association 89 (427): 958–966. 
+  
 Pitman, Jim. 1995. “Exchangeable and Partially Exchangeable Random Partitions,” Probability Theory and Related Fields 102 (2): 145–158.  
+  
 Yngvason, Elliott H. Lieb; Jakob. 1999. “The Physics and Mathematics of the Second Law of Thermodynamics,” Physics Reports Volume:310 Issue:1 1–96.  

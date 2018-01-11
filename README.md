@@ -56,7 +56,7 @@ For online help facilities or the details of a particular command (such as the f
 ```
 
 ## Method
-#### Calculating Methods for CRP Clustering
+### Calculating Methods for CRP Clustering
 
 ```
 > z_result <- crp_gibbs(data, mu=c(0,0), sigma=0.5, sigma_table=12,
@@ -75,7 +75,7 @@ This method calculates CRP Clustering.
 ・ iteration : iteration numbers.   
 ・ z_result : a vector express cluster numbers for each data i.  
 
-#### Visualization Methods
+### Visualization Methods
 
 ```
 > crp_graph_2d(data, z_result)

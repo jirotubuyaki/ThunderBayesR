@@ -1,10 +1,10 @@
 # CRPClustering: An R package for Bayesian Nonparametric Chinese Restaurant Process Clustering with Entropy  
 
 ## Abstract
-Clustering is a scientific method which finds the clusters of data. And lots of methods are traditionally researched for long terms. Bayesian Nonparametric is Statistics which can treat models having infinite parameters. Chinese Restaurant Process is used in order to compose Dirichlet Process. The Clustering which uses Chinese Restaurant Process does not need to decide a number of clusters in advance. This algorithm automatically adjusts it. And this package can calculate clusters in addition to entropy as ambiguity of clusters.
+Clustering is a scientific method which finds the clusters of data. And many methods are traditionally researched for long terms. Bayesian Nonparametric is Statistics which can treat models having infinite parameters. Chinese Restaurant Process is used in order to compose Dirichlet Process. The Clustering which uses Chinese Restaurant Process does not need to decide a number of clusters in advance. This algorithm automatically adjusts it. And this package can calculate clusters in addition to entropy as ambiguity of clusters.
 
 ## Introduction
-Clustering is a traditional method in order to find clusters of data. And lots of methods are invented for several decades. The most popular method is called as K-mean[@Hartigan1979]. K-mean is an algorithmic way in order to search clusters of data. But its method needs to decide a number of clusters in advance. So if the data is both high dimensions and a complex, deciding accurate numbers of clusters is difficult. And normal bayesian methods are too. For that reason, Bayesian Nonparametric methods are gradually important as computers are faster. In this package, we implement Chinese Restaurant Process Clustering (CRP)[@Pitman1995]. CRP can compose infinite dimensional parameters as Dirichlet Process[@Ferguson1973]. It acts like customers who sit at tables in a restaurant and has a probability to sit at a new table. As a result, Its model always automates Clustering. And we add the method which calculates entropy[@Elliott1999] of clusters into this package. It can check ambiguity of the result. Then we explain the Clustering model and how to use it in detail. Finally, an example is explained.
+Clustering is a traditional method in order to find clusters of data. And many methods are invented for several decades. The most popular method is called as K-mean[@Hartigan1979]. K-mean is an algorithmic way in order to search clusters of data. But its method needs to decide a number of clusters in advance. So if the data is both high dimensions and a complex, deciding accurate numbers of clusters is difficult. And normal bayesian methods are too. For that reason, Bayesian Nonparametric methods are gradually important as computers are faster. In this package, we implement Chinese Restaurant Process Clustering (CRP)[@Pitman1995]. CRP can compose infinite dimensional parameters as Dirichlet Process[@Ferguson1973]. It acts like customers who sit at tables in a restaurant and has a probability to sit at a new table. As a result, Its model always automates Clustering. And we add the method which calculates entropy[@Elliott1999] of clusters into this package. It can check ambiguity of the result. Then we explain the Clustering model and how to use it in detail. Finally, an example is explained.
 
 ## Background
 ### Chinese Restaurant Process
@@ -17,7 +17,7 @@ n_k expresses the number of the customers at a table k. And α is a concentratio
 ### Markov Chain Monte Carlo Methods for CRP Clustering
 Markov Chain Monte Carlo methods (MCMC) are algorithmic methods[@Liu1994] to sample from posterior distributions. If conditional posterior distributions are given by models, it is the best way in order to acquire parameters as posterior distributions. The algorithm for this package is given by  
 
-Lots of iterations continue on below.
+Many iterations continue on below.
 
 i) Sampling z_i for each i (i = 1,2, ・・・,n)
 
@@ -100,7 +100,7 @@ Data is generated from three Normal distributions and mu_0 = (-1,1) , mu_1 = (-1
 Chinese Restaurant Process Clustering was implemented and explained how to use it. Computers resources is limited. Computer processing power is the most important problem. And several improvements are planed. Please send suggestions and report bugs to okadaalgorithm@gmail.com.
 
 ## Acknowledgments
-This activity would not have been possible without the support of my family and friends. To my family, thank you for lots of encouragement for me and inspiring me to follow my dreams. I am especially grateful to my parents, who supported me all aspects.  
+This activity would not have been possible without the support of my family and friends. To my family, thank you for much encouragement for me and inspiring me to follow my dreams. I am especially grateful to my parents, who supported me all aspects.  
 
 ## References
 Ferguson, Thomas. 1973. “Bayesian Analysis of Some Nonparametric Problems,” Annals of Statistics. 1 (2):

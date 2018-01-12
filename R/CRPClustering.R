@@ -7,7 +7,7 @@
 #
 #
 # Description: Chinese Restaurant Process is used in order to compose Dirichlet
-# Process. The clustering which uses Chinese Restaurant Process does not need to
+# Process. The Clustering which uses Chinese Restaurant Process does not need to
 # decide a number of clusters in advance. This algorithm automatically adjusts
 # it. And this package calculates ambiguity as entropy.
 
@@ -25,12 +25,12 @@ library(randomcoloR)
 #' @import stats
 #' @import grid
 #' @importFrom utils read.table
-#' @param data : a matrix of data for clustering. Rows are data_i and cols are dimensions of data.
+#' @param data : a matrix of data for Clustering. Rows are data_i and cols are dimensions of data.
 #' @param mu : numbers of center points of data. If data is 3 dimensions, a vector of 3 elements like c(2,4,2).
 #' @param sigma : a number of data variance.
 #' @param sigma_table : a number of CRP variance.
-#' @param alpha : a number of CRP concentrate rate.
-#' @param ro_0 : a number of CRP mu change rate.
+#' @param alpha : a number of a CRP concentrate rate.
+#' @param ro_0 : a number of a CRP mu change rate.
 #' @param burn_in :  a iteration number of burn in.
 #' @param iteration : a iteration number.
 #' @return z_result : a vector expresses cluster numbers for each data i.
@@ -180,7 +180,7 @@ crp_gibbs<- function(data, mu=c(0,0), sigma=0.5, sigma_table=12, alpha=1, ro_0=0
 #' @import randomcoloR
 #' @import graphics
 #' @import stats
-#' @param data : a matrix of data for clustering. Rows are data_i and cols are dimensions of data.
+#' @param data : a matrix of data for Clustering. Rows are data_i and cols are dimensions of data.
 #' @param z_result : a vector expresses cluster numbers for each data i. And the output of the method "crp_gibbs".
 #' @examples
 #' crp_graph_2d(matrix(c(0.1,0.1,0.2,0.2,0.3,0.3,1.4,1.4,1.5,1.5),2,2), c(1,1,2,2,2))

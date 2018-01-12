@@ -8,7 +8,7 @@ crp_gibbs(data, mu = c(0, 0), sigma = 0.5, sigma_table = 12, alpha = 1,
   ro_0 = 0.1, burn_in = 10, iteration = 100)
 }
 \arguments{
-\item{data}{: a matrix of data for clustering. Rows are data_i and cols are dimensions of data.}
+\item{data}{: a matrix of data for Clustering. Rows are data_i and cols are dimensions of data.}
 
 \item{mu}{: numbers of center points of data. If data is 3 dimensions, a vector of 3 elements like c(2,4,2).}
 
@@ -16,9 +16,9 @@ crp_gibbs(data, mu = c(0, 0), sigma = 0.5, sigma_table = 12, alpha = 1,
 
 \item{sigma_table}{: a number of CRP variance.}
 
-\item{alpha}{: a number of CRP concentrate rate.}
+\item{alpha}{: a number of a CRP concentrate rate.}
 
-\item{ro_0}{: a number of CRP mu change rate.}
+\item{ro_0}{: a number of a CRP mu change rate.}
 
 \item{burn_in}{:  a iteration number of burn in.}
 

@@ -15,7 +15,7 @@ Chinese Restaurant Process is a metaphor looks like customers sit at a table in 
 n_k expresses the number of the customers at a table k. And α is a concentration parameter.
 
 ### Markov Chain Monte Carlo Methods for CRP Clustering
-Markov chain Monte Carlo methods (MCMC) are algorithmic methods[@Liu1994] to sample from posterior distributions. If conditional posterior distributions are given by models, it is the best way in order to acquire parameters as posterior distributions. The algorithm for this package is given by  
+Markov Chain Monte Carlo methods (MCMC) are algorithmic methods[@Liu1994] to sample from posterior distributions. If conditional posterior distributions are given by models, it is the best way in order to acquire parameters as posterior distributions. The algorithm for this package is given by  
 
 Lots of iterations continue on below.
 

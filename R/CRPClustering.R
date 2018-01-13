@@ -27,12 +27,12 @@ library(randomcoloR)
 #' @importFrom utils read.table
 #' @param data : a matrix of data for clustering. Rows are data_i and cols are dimensions of data.
 #' @param mu : a vector of center points of data. If data is 3 dimensions, a vector of 3 elements like c(2,4,2).
-#' @param sigma : a number of data variance.
-#' @param sigma_table : a number of CRP variance.
-#' @param alpha : a number of a CRP concentrate rate.
-#' @param ro_0 : a number of a CRP mu change rate.
-#' @param burn_in :  a iteration number of burn in.
-#' @param iteration : a iteration number.
+#' @param sigma : a numeric of data variance.
+#' @param sigma_table : a numeric of CRP variance.
+#' @param alpha : a numeric of a CRP concentrate rate.
+#' @param ro_0 : a numeric of a CRP mu change rate.
+#' @param burn_in :  an iteration integer of burn in.
+#' @param iteration : an iteration integer.
 #' @return z_result : a vector expresses cluster numbers for each data i.
 #' @examples
 #' z_result <- crp_gibbs(matrix(c(0.1,0.1,0.2,0.2,0.3,0.3,1.4,1.4,1.5,1.5),2,2),

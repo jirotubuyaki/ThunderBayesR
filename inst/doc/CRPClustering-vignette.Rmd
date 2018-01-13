@@ -17,14 +17,14 @@ vignette: >
 ---
 
 ## Abstract
-Clustering is a scientific method which finds the clusters of data and many related methods are traditionally researched for long terms. Bayesian nonparametrics is statistics which can treat models having infinite parameters. Chinese restaurant process is used in order to compose Dirichlet process. The clustering which uses Chinese restaurant process does not need to decide a number of clusters in advance. This algorithm automatically adjusts it. Then, this package can calculate clusters in addition to entropy as ambiguity of clusters.
+Clustering is a scientific method which finds the clusters of data and many related methods are traditionally researched for long terms. Bayesian nonparametrics is statistics which can treat models having infinite parameters. Chinese restaurant process is used in order to compose Dirichlet process. The clustering which uses Chinese restaurant process does not need to decide the number of clusters in advance. This algorithm automatically adjusts it. Then, this package can calculate clusters in addition to entropy as ambiguity of clusters.
 
 ## Introduction
-Clustering is a traditional method in order to find clusters of data and many related methods are invented for several decades. The most popular method is called as K-mean[@Hartigan1979]. K-mean is an algorithmic way in order to search clusters of data. However its method needs to decide a number of clusters in advance. Therefore if the data is both high dimensions and a complex, deciding accurate numbers of clusters is difficult and normal bayesian methods are too. For that reason, Bayesian Nonparametric methods are gradually important as computers are faster than ever. In this package, we implement Chinese restaurant process clustering  (CRP)[@Pitman1995]. CRP can compose infinite dimensional parameters as Dirichlet process[@Ferguson1973]. It acts like customers who sit at tables in a restaurant and has a probability to sit at a new table. As a result, Its model always automates clustering. Moreover, we add the method which calculates entropy[@Elliott1999] of clusters into this package. It can check ambiguity of the result. Then, we explain the clustering model and how to use it in detail. Finally, an example is plotted on a graph.
+Clustering is a traditional method in order to find clusters of data and many related methods are invented for several decades. The most popular method is called as K-mean[@Hartigan1979]. K-mean is an algorithmic way in order to search clusters of data. However its method needs to decide the number of clusters in advance. Therefore if the data is both high dimensions and a complex, deciding the accurate numbers of clusters is difficult and normal bayesian methods are too. For that reason, Bayesian Nonparametric methods are gradually important as computers are faster than ever. In this package, we implement Chinese restaurant process clustering  (CRP)[@Pitman1995]. CRP can compose infinite dimensional parameters as Dirichlet process[@Ferguson1973]. It acts like customers who sit at tables in a restaurant and has a probability to sit at a new table. As a result, Its model always automates clustering. Moreover, we add the method which calculates entropy[@Elliott1999] of clusters into this package. It can check ambiguity of the result. Then, we explain the clustering model and how to use it in detail. Finally, an example is plotted on a graph.
 
 ## Background
 #### Chinese Restaurant Process
-Chinese restaurant process is a metaphor looks like customers sit at a table in Chinese restaurant. All customers except for $x_i$ have already sat at finite tables. A new customer $x_i$ will sit at either a table which other customers have already sat at or a new table. A new customer tends to sit at a table which has a number of customers more than other tables. A probability equation is given by:
+Chinese restaurant process is a metaphor looks like customers sit at a table in Chinese restaurant. All customers except for $x_i$ have already sat at finite tables. A new customer $x_i$ will sit at either a table which other customers have already sat at or a new table. A new customer tends to sit at a table which has the number of customers more than other tables. A probability equation is given by:
 
 $$
 \begin{split}
@@ -110,12 +110,12 @@ Let's args be:
 
 *  data : a matrix of data for clustering. Rows are data $i$ and cols are dimensions of data.
 *  mu : a vector of center points of data. If data is 3 dimensions, a vector of 3 elements like "c(2,4,7)".
-*  sigma : a number of data variance.
-*  sigma_table : a number of table position variance.
-*  alpha : a number of a CRP concentration rate.
-*  ro_0 : a number of a CRP mu change rate.
-*  burn_in : a iteration number of burn in.
-*  iteration : a iteration number.
+*  sigma : a numeric of data variance.
+*  sigma_table : a numeric of table position variance.
+*  alpha : a numeric of a CRP concentration rate.
+*  ro_0 : a numeric of a CRP mu change rate.
+*  burn_in : an iteration integer of burn in.
+*  iteration : an iteration integer.
 
 Let's return be:    
 

@@ -12,17 +12,17 @@ crp_gibbs(data, mu = c(0, 0), sigma = 0.5, sigma_table = 12, alpha = 1,
 
 \item{mu}{: a vector of center points of data. If data is 3 dimensions, a vector of 3 elements like c(2,4,2).}
 
-\item{sigma}{: a number of data variance.}
+\item{sigma}{: a numeric of data variance.}
 
-\item{sigma_table}{: a number of CRP variance.}
+\item{sigma_table}{: a numeric of CRP variance.}
 
-\item{alpha}{: a number of a CRP concentrate rate.}
+\item{alpha}{: a numeric of a CRP concentrate rate.}
 
-\item{ro_0}{: a number of a CRP mu change rate.}
+\item{ro_0}{: a numeric of a CRP mu change rate.}
 
-\item{burn_in}{:  a iteration number of burn in.}
+\item{burn_in}{:  an iteration integer of burn in.}
 
-\item{iteration}{: a iteration number.}
+\item{iteration}{: an iteration integer.}
 }
 \value{
 z_result : a vector expresses cluster numbers for each data i.

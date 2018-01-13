@@ -19,14 +19,14 @@ library(mvtnorm)
 library(randomcoloR)
 #---------------------------------------------------------------------------End
 
-#' Markov chain Monte Carlo methods for CRP Clustering
+#' Markov chain Monte Carlo methods for CRP clustering
 #' @import MASS
 #' @import mvtnorm
 #' @import stats
 #' @import grid
 #' @importFrom utils read.table
-#' @param data : a matrix of data for Clustering. Rows are data_i and cols are dimensions of data.
-#' @param mu : numbers of center points of data. If data is 3 dimensions, a vector of 3 elements like c(2,4,2).
+#' @param data : a matrix of data for clustering. Rows are data_i and cols are dimensions of data.
+#' @param mu : a vector of center points of data. If data is 3 dimensions, a vector of 3 elements like c(2,4,2).
 #' @param sigma : a number of data variance.
 #' @param sigma_table : a number of CRP variance.
 #' @param alpha : a number of a CRP concentrate rate.
@@ -176,11 +176,11 @@ crp_gibbs<- function(data, mu=c(0,0), sigma=0.5, sigma_table=12, alpha=1, ro_0=0
   return(invisible(z_result))
 }
 
-#' CRP Clustering Visualization
+#' CRP clustering visualization
 #' @import randomcoloR
 #' @import graphics
 #' @import stats
-#' @param data : a matrix of data for Clustering. Rows are data_i and cols are dimensions of data.
+#' @param data : a matrix of data for clustering. Rows are data_i and cols are dimensions of data.
 #' @param z_result : a vector expresses cluster numbers for each data i. And the output of the method "crp_gibbs".
 #' @examples
 #' crp_graph_2d(matrix(c(0.1,0.1,0.2,0.2,0.3,0.3,1.4,1.4,1.5,1.5),2,2), c(1,1,2,2,2))

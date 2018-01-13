@@ -2,15 +2,15 @@
 % Please edit documentation in R/CRPClustering.R
 \name{crp_gibbs}
 \alias{crp_gibbs}
-\title{Markov chain Monte Carlo methods for CRP Clustering}
+\title{Markov chain Monte Carlo methods for CRP clustering}
 \usage{
 crp_gibbs(data, mu = c(0, 0), sigma = 0.5, sigma_table = 12, alpha = 1,
   ro_0 = 0.1, burn_in = 10, iteration = 100)
 }
 \arguments{
-\item{data}{: a matrix of data for Clustering. Rows are data_i and cols are dimensions of data.}
+\item{data}{: a matrix of data for clustering. Rows are data_i and cols are dimensions of data.}
 
-\item{mu}{: numbers of center points of data. If data is 3 dimensions, a vector of 3 elements like c(2,4,2).}
+\item{mu}{: a vector of center points of data. If data is 3 dimensions, a vector of 3 elements like c(2,4,2).}
 
 \item{sigma}{: a number of data variance.}
 
@@ -28,7 +28,7 @@ crp_gibbs(data, mu = c(0, 0), sigma = 0.5, sigma_table = 12, alpha = 1,
 z_result : a vector expresses cluster numbers for each data i.
 }
 \description{
-Markov chain Monte Carlo methods for CRP Clustering
+Markov chain Monte Carlo methods for CRP clustering
 }
 \examples{
 z_result <- crp_gibbs(matrix(c(0.1,0.1,0.2,0.2,0.3,0.3,1.4,1.4,1.5,1.5),2,2),

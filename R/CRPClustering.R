@@ -25,7 +25,7 @@ library(randomcoloR)
 #' @import stats
 #' @import grid
 #' @importFrom utils read.table
-#' @param data : a matrix of data for clustering. Row is each data_i and column is dimensions of each data i.
+#' @param data : a matrix of data for clustering. Row is each data_i and column is dimensions of each data_i.
 #' @param mu : a vector of center points of data. If data is 3 dimensions, a vector of 3 elements like c(2,4,2).
 #' @param sigma : a numeric of data variance.
 #' @param sigma_table : a numeric of CRP variance.
@@ -33,7 +33,7 @@ library(randomcoloR)
 #' @param ro_0 : a numeric of a CRP mu change rate.
 #' @param burn_in :  an iteration integer of burn in.
 #' @param iteration : an iteration integer.
-#' @return z_result : a vector expresses cluster numbers for each data i.
+#' @return z_result : a vector expresses cluster numbers for each data_i.
 #' @examples
 #' z_result <- crp_gibbs(matrix(c(0.1,0.1,0.2,0.2,0.3,0.3,1.4,1.4,1.5,1.5),2,2),
 #'  mu=c(0,0), sigma=0.5, sigma_table=12, alpha=1, ro_0=0.1, burn_in=10, iteration=100)
@@ -180,8 +180,8 @@ crp_gibbs<- function(data, mu=c(0,0), sigma=0.5, sigma_table=12, alpha=1, ro_0=0
 #' @import randomcoloR
 #' @import graphics
 #' @import stats
-#' @param data : a matrix of data for clustering. Rows are data_i and cols are dimensions of data.
-#' @param z_result : a vector expresses cluster numbers for each data i. And the output of the method "crp_gibbs".
+#' @param data : a matrix of data for clustering. Row is each data_i and column is dimensions of each data_i.
+#' @param z_result : a vector denotes the number of a cluster for each data_i and it is the output of the method "crp_gibbs".
 #' @examples
 #' crp_graph_2d(matrix(c(0.1,0.1,0.2,0.2,0.3,0.3,1.4,1.4,1.5,1.5),2,2), c(1,1,2,2,2))
 #' @export

@@ -8,7 +8,7 @@ crp_gibbs(data, mu = c(0, 0), sigma = 0.5, sigma_table = 12, alpha = 1,
   ro_0 = 0.1, burn_in = 10, iteration = 100)
 }
 \arguments{
-\item{data}{: a matrix of data for clustering. Row is each data_i and column is dimensions of each data i.}
+\item{data}{: a matrix of data for clustering. Row is each data_i and column is dimensions of each data_i.}
 
 \item{mu}{: a vector of center points of data. If data is 3 dimensions, a vector of 3 elements like c(2,4,2).}
 
@@ -25,7 +25,7 @@ crp_gibbs(data, mu = c(0, 0), sigma = 0.5, sigma_table = 12, alpha = 1,
 \item{iteration}{: an iteration integer.}
 }
 \value{
-z_result : a vector expresses cluster numbers for each data i.
+z_result : a vector expresses cluster numbers for each data_i.
 }
 \description{
 Markov chain Monte Carlo methods for CRP clustering

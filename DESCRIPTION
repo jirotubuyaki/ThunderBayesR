@@ -2,7 +2,7 @@ Package: CRPClustering
 Type: Package
 Title: Bayesian Nonparametric Chinese Restaurant Process Clustering with Entropy
 Version: 1.0
-Date: 2018-01-20
+Date: 2018-01-14
 Authors@R: c(
   person("Masashi", "Okada", role = c("aut", "cre"), email="okadaalgorithm@gmail.com")
   )

@@ -1,6 +1,6 @@
 ---
 title: "CRPClustering: An R Package for Bayesian Nonparametric Chinese Restaurant Process Clustering with Entropy"
-#subtitle: 'A Vignette'
+subtitle: 'A Vignette'
 author: |
   | Masashi Okada
   | Okada Algorithm Private Invention Research Laboratory, Japan

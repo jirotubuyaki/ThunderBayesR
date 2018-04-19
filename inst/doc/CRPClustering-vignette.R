@@ -1,6 +1,6 @@
-## ----fig.width=3.2,fig.height=2.59,fig.align="center",echo=FALSE---------
+## ----fig.width=13.0,fig.height=4.0,fig.align="center",fig.cap="CRP clustering result",echo=FALSE----
 library(png)
 library(grid)
-img <- readPNG("./image2.png")
+img <- readPNG("./image.png")
  grid.raster(img)
 

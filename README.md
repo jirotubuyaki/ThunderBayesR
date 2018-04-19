@@ -37,7 +37,7 @@ Entropy denotes the ambiguity of clustering. As a result of a simulation, data x
 
 
 ## Installation
-CRPClustering is available through GitHub (https://github.com/jirotubuyaki/CRPClustering). If download from GitHub, you can use devtools by the commands:
+CRPClustering is available through GitHub (https://github.com/jirotubuyaki/CRPClustering) or CRAN (https://CRAN.R-project.org/package=CRPClustering). If download from GitHub, you can use devtools by the commands:
 
 ```
 > library(devtools)
@@ -60,24 +60,27 @@ For online help facilities or the details of a particular command (such as the f
 ### Method for Chinese Restaurant Process Clustering
 
 ```
-> z_result <- crp_gibbs(data, mu=c(0,0), sigma=0.5, sigma_table=12,
-                        alpha=1.0, ro_0=0.1, burn_in=10, iteration=100)
-
+> z_result <- crp_gibbs(as.matrix(data),
+                          mu=c(0,0),
+                          sigma_table=14,
+                          alpha=0.3,
+                          ro_0=0.1,
+                          burn_in=40,
+                          iteration=200
+                        )
 ```
 
 This method calculates CRP clustering.  
 Let’s arguments be:  
-  ・ data : a matrix of data for clustering. Row is each data i and column is dimensions of each data i.  
+  ・ data : a matrix of data for clustering. row is each data i and column is dimensions of each data i.  
   ・ mu : a vector of center points of data. If data is 3 dimensions, a vector of 3 elements like "c(2,4,7)".  
-  ・ sigma : a numeric of data variance.  
   ・ sigma_table : a numeric of table position variance.  
   ・ alpha : a numeric of a CRP concentration rate.  
   ・ ro_0 : a numeric of a CRP mu change rate.  
   ・ burn_in : an iteration integer of burn in.  
   ・ iteration : an iteration integer.  
-
 Let’s return be:  
-  ・ z_result : a vector denotes the number of a cluster for each data i.   
+  ・ z_result : an array denotes the number of a cluster for each data i.   
 
 ### Visualization Method
 
@@ -91,14 +94,14 @@ Let’s arguments be:
   ・ z_result : a vector denotes the number of a cluster for each data i and it is the output of the method "crp_gibbs".  
 
 ## Example
-Data is generated from three normal distributions and mu_0 = (-1,1) , mu_1 = (-1.3,-1.3) , mu_2 = (1, -1) and sigma_0 = 0.3 , sigma_1 = 0.02 , sigma_2 = 0.3. The result is plotted on a graph and each data joins in any cluster. The graph is given by below
+Data is generated from normal distributions and parameters are set as mu=c(0,0), alpha=0.3, sigmatable=14, rho_0=0.1, burnin=40, iteration=200. The result is plotted on a graph and each data joins in any cluster. The graph is given by below:
 
 ![equa](./readme_images/figure_1.png "eque")
 
 　　　　　　　　Figure 1. CRP clustering result
 
 ## Conclusions
-Chinese restaurant process clustering was implemented and explained how to use it. Computer resources are limited. Computer processing power is the most important problem. And several improvements are planed. Please send suggestions and report bugs to okadaalgorithm@gmail.com.
+Chinese restaurant process clustering was implemented and explained how to use it. Computer resources are limited. Computer processing power is the most important problem. After this, several improvements are planed. Please send suggestions and report bugs to okadaalgorithm@gmail.com.
 
 ## Acknowledgments
 This activity would not have been possible without the support of my family and friends. To my family, thank you for much encouragement for me and inspiring me to follow my dreams. I am especially grateful to my parents, who supported me all aspects.  

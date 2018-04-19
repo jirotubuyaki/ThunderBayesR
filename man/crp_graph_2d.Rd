@@ -4,16 +4,13 @@
 \alias{crp_graph_2d}
 \title{CRP clustering visualization}
 \usage{
-crp_graph_2d(data, z_result)
+crp_graph_2d(data = data, z_result = z_result)
 }
 \arguments{
 \item{data}{: a matrix of data for clustering. Row is each data_i and column is dimensions of each data_i.}
 
-\item{z_result}{: a vector denotes the number of a cluster for each data_i and it is the output of the method "crp_gibbs".}
+\item{z_result}{: an array denotes the number of a cluster for each data_i and it is the output of the method "crp_gibbs".}
 }
 \description{
 CRP clustering visualization
-}
-\examples{
-crp_graph_2d(matrix(c(0.1,0.1,0.2,0.2,0.3,0.3,1.4,1.4,1.5,1.5),2,2), c(1,1,2,2,2))
 }

@@ -85,7 +85,7 @@ Let’s return be:
 ### Visualization Method
 
 ```
-> crp_graph_2d(data, z_result)
+> crp_graph_2d(as.matrix(data), z_result)
 ```
 
 This method exhibits a two dimensional graph for the method "crp_gibbs".  

@@ -91,7 +91,7 @@ Let’s return be:
 This method exhibits a two dimensional graph for the method "crp_gibbs".  
 Let’s arguments be:  
   ・ data : a matrix of data for clustering. Row is each data i and column is dimensions of each data i.  
-  ・ z_result : a vector denotes the number of a cluster for each data i and it is the output of the method "crp_gibbs".  
+  ・ z_result : an array denotes the number of a cluster for each data i and it is the output of the method "crp_gibbs".  
 
 ## Example
 Data is generated from normal distributions and parameters are set as mu=c(0,0), alpha=0.3, sigmatable=14, rho_0=0.1, burnin=40, iteration=200. The result is plotted on a graph and each data joins in any cluster. The graph is given by below:

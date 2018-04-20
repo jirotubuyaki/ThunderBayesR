@@ -24,7 +24,7 @@ i) Sampling z_i for each i (i = 1,2, ・・・,n)
 
 ![equa](./readme_images/equation_2.png "eque")
 
-where k is a k th cluster and i is a i th data. mu$and sigma_table arguments in the "crp_gibbs" function are generating mu_k parameter for new table.  
+where k is a k th cluster and i is a i th data. mu and sigma_table arguments in the "crp_gibbs" function are generating mu_k parameter for new table.  
 
 ii) Sampling u_k for each k (k = 1,2, ・・・,∞)
 

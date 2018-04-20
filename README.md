@@ -24,11 +24,13 @@ i) Sampling z_i for each i (i = 1,2, ・・・,n)
 
 ![equa](./readme_images/equation_2.png "eque")
 
+where k is a k th cluster and i is a i th data. mu$and sigma_table arguments in the "crp_gibbs" function are generating mu_k parameter for new table.  
+
 ii) Sampling u_k for each k (k = 1,2, ・・・,∞)
 
 ![equa](./readme_images/equation_3.png "eque")
 
-Sigma_k is a variance-covariance matrix of k th cluster. i and j are rows and columns' number of Sigma_k. First several durations of iterations which are called as "burn in" are error ranges. For that reason, "burn in" durations are abandoned.  
+Sigma_k is a variance-covariance matrix of k th cluster. i and j are rows and columns' number of Sigma_k. rho_0 is a argument ro_0 in "crp_gibbs" function. First several durations of iterations which are called as "burn in" are error ranges. For that reason, "burn in" durations are abandoned.  
 
 ### Clusters Entropy
 Entropy denotes the ambiguity of clustering. As a result of a simulation, data x_i joins in a particular table. From the total numbers n_k of the particular table k at the last iteration, a probability p_k at each cluster k is calculated. The entropy equation is given by

@@ -3,7 +3,7 @@ Type: Package
 Title: Bayesian Nonparametric Chinese Restaurant Process Clustering
         with Entropy
 Version: 1.1
-Date: 2018-04-18
+Date: 2018-04-19
 Authors@R: c(
   person("Masashi", "Okada", role = c("aut", "cre"), email="okadaalgorithm@gmail.com")
   )
@@ -18,7 +18,3 @@ LazyData: true
 RoxygenNote: 6.0.1
 Suggests: knitr, rmarkdown
 VignetteBuilder: knitr
-Repository: CRAN
-NeedsCompilation: no
-Packaged: 2018-01-14 11:01:10 UTC; okada
-Date/Publication: 2018-01-15 12:42:13 UTC

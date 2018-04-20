@@ -25,9 +25,11 @@ library(randomcoloR)
 #' @import MASS
 #' @import mvtnorm
 #' @import lucid
-#' @import dplyr
-#' @import stats
+#' @importFrom stats rmultinom
+#' @importFrom stats var
+#' @importFrom dplyr filter
 #' @import grid
+#' @import png
 #' @importFrom utils read.table
 #' @param data : a matrix of data for clustering. Row is each data_i and column is dimensions of each data_i.
 #' @param mu : a vector of center points of data. If data is 3 dimensions, a vector of 3 elements like c(2,4,2).
@@ -37,6 +39,17 @@ library(randomcoloR)
 #' @param burn_in :  an iteration integer of burn in.
 #' @param iteration : an iteration integer.
 #' @return z_result : an array expresses cluster numbers for each data_i.
+#' @examples
+#' data <- matrix(c(1.8,1.9,2.1,2.5,5.6,5.2,6,6.1), 4, 2)
+#' z_result <- crp_gibbs(
+#'                       data,
+#'                       mu=c(0,0),
+#'                       sigma_table=14,
+#'                       alpha=0.3,
+#'                       ro_0=0.1,
+#'                       burn_in=10,
+#'                       iteration=100
+#'                      )
 #' @export
 crp_gibbs<- function(data, mu=c(0,0), sigma_table=14, alpha=0.3, ro_0=0.1, burn_in=40, iteration=200) {
   if(is.matrix(data) == FALSE){
@@ -280,7 +293,6 @@ crp_gibbs<- function(data, mu=c(0,0), sigma_table=14, alpha=0.3, ro_0=0.1, burn_
 #' CRP clustering visualization
 #' @import randomcoloR
 #' @import graphics
-#' @import stats
 #' @param data : a matrix of data for clustering. Row is each data_i and column is dimensions of each data_i.
 #' @param z_result : an array denotes the number of a cluster for each data_i and it is the output of the method "crp_gibbs".
 #' @export

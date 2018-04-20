@@ -28,3 +28,15 @@ z_result : an array expresses cluster numbers for each data_i.
 \description{
 Markov chain Monte Carlo methods for CRP clustering
 }
+\examples{
+data <- matrix(c(1.8,1.9,2.1,2.5,5.6,5.2,6,6.1), 4, 2)
+z_result <- crp_gibbs(
+                      data,
+                      mu=c(0,0),
+                      sigma_table=14,
+                      alpha=0.3,
+                      ro_0=0.1,
+                      burn_in=10,
+                      iteration=100
+                     )
+}

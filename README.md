@@ -73,7 +73,7 @@ For online help facilities or the details of a particular command (such as the f
 ```
 
 This method calculates CRP clustering.  
-Let’s arguments be:  
+Let arguments be:  
   ・ data : a matrix of data for clustering. row is each data i and column is dimensions of each data i.  
   ・ mu : a vector of center points of data. If data is 3 dimensions, a vector of 3 elements like "c(2,4,7)".  
   ・ sigma_table : a numeric of table position variance.  
@@ -81,7 +81,7 @@ Let’s arguments be:
   ・ ro_0 : a numeric of a CRP mu change rate.  
   ・ burn_in : an iteration integer of burn in.  
   ・ iteration : an iteration integer.  
-Let’s return be:  
+Let return be:  
   ・ z_result : an array denotes the number of a cluster for each data i.   
 
 ### Visualization Method
@@ -91,7 +91,7 @@ Let’s return be:
 ```
 
 This method exhibits a two dimensional graph for the method "crp_gibbs".  
-Let’s arguments be:  
+Let arguments be:  
   ・ data : a matrix of data for clustering. Row is each data i and column is dimensions of each data i.  
   ・ z_result : an array denotes the number of a cluster for each data i and it is the output of the method "crp_gibbs".  
 

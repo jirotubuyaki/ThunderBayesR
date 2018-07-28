@@ -17,6 +17,8 @@
 library(rscala)
 library(ggplot2)
 library(GGally)
+library(mvtnorm)
+library(MASS)
 #---------------------------------------------------------------------------End
 #' Loading Scala Jar file
 #' @import rscala

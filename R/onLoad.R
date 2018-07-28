@@ -52,7 +52,7 @@ library(GGally)
 #'                       iteration=1000
 #'                      )
 #' @export
-crp_train<- function(data, mu=c(0,0), sigma_table=14, alpha=0.3, ro_0=0.1, burn_in=40, iteration=200) {
+crp_train<- function(data, mu=c(0,0), sigma_table=1, alpha=1, ro_0=1, burn_in=100, iteration=1000) {
   if(is.matrix(data) == FALSE){
     print("Error: Input data type is not matrix.")
     return(FALSE)

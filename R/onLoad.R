@@ -44,7 +44,7 @@ library(MASS)
 #' @return result : an array expresses cluster number and joined data number and cluster's mean and variance matrix.
 #' @examples
 #' data <- matrix(c(1.8,1.9,2.1,2.5,5.6,5.2,6,6.1), 4, 2)
-#' result <- crp_gibbs(
+#' result <- crp_train(
 #'                       data,
 #'                       mu=c(0,0),
 #'                       sigma_table=1,

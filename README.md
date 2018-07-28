@@ -1,6 +1,6 @@
 # CRPClustering: An R Package for Bayesian Nonparametric Chinese Restaurant Process Clustering with Entropy 
   
-## Now Under Construction for Version up to 1.3
+## Now Under Construction for Version up to 1.3 (2018-07-28)
 ## Methods are changing..
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/CRPClustering)](http://cran.r-project.org/package=CRPClustering)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/CRPClustering)](http://cran.rstudio.com/web/packages/CRPClustering/index.html)

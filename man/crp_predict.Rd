@@ -2,7 +2,7 @@
 % Please edit documentation in R/onLoad.R
 \name{crp_predict}
 \alias{crp_predict}
-\title{Predict The Clusters' Probability that Data Joins.}
+\title{Predict The Clusters' Probability that Data Joins in.}
 \usage{
 crp_predict(data = data, result = result)
 }
@@ -15,5 +15,5 @@ crp_predict(data = data, result = result)
 predict:an array expresses a joined cluster number and joined probability for each cluster.
 }
 \description{
-Predict The Clusters' Probability that Data Joins.
+Predict The Clusters' Probability that Data Joins in.
 }

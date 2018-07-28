@@ -4,8 +4,8 @@
 \alias{crp_train}
 \title{Markov chain Monte Carlo methods for CRP Clustering}
 \usage{
-crp_train(data, mu = c(0, 0), sigma_table = 14, alpha = 0.3, ro_0 = 0.1,
-  burn_in = 40, iteration = 200)
+crp_train(data, mu = c(0, 0), sigma_table = 1, alpha = 1, ro_0 = 1,
+  burn_in = 100, iteration = 1000)
 }
 \arguments{
 \item{data}{: a matrix of data for clustering. Row is each data_i and column is dimensions of each data_i.}

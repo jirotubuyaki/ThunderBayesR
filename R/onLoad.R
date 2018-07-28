@@ -105,8 +105,8 @@ crp_train<- function(data, mu=c(0,0), sigma_table=1, alpha=1, ro_0=1, burn_in=10
   burn_in <- as.integer(burn_in)
   iteration <- as.integer(iteration)
 
-  scala(packages="CRPDensity", assign.name='e')
-  out <- e(data_length=data_length, dim=dim, data=data, mu=mu, sigma_table=sigma_table, alpha=alpha, ro_0=ro_0, burn_in=burn_in, iteration=iteration) * 'CRPDensity.CRPDensity.crp_gibbs(data_length, dim, data, mu, sigma_table, alpha, ro_0, burn_in, iteration)'
+  scala(packages="CRPClustering", assign.name='e')
+  out <- e(data_length=data_length, dim=dim, data=data, mu=mu, sigma_table=sigma_table, alpha=alpha, ro_0=ro_0, burn_in=burn_in, iteration=iteration) * 'CRPClustering.CRPClustering.crp_gibbs(data_length, dim, data, mu, sigma_table, alpha, ro_0, burn_in, iteration)'
   close(e)
 
   result <- data.frame(ClusterNumber = out[ , 1], TotalNumber = out[ , 2] ,ResultMean = out[ , 3 : (3 + dim - 1)], ResultVariance = out[ , (3 + dim) : (3 + dim * 2 + 1)])

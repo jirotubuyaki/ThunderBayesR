@@ -62,10 +62,16 @@ For online help facilities or the details of a particular command (such as the f
 ```
 
 ## Methods
-### Method for Chinese Restaurant Process Clustering
+
+### Implemented by Scala
+
+This package is implemented by Scala. Please install Scala compiler version 2.12.6. Pro-
+grams are compiled java archive. If you are interested in source codes by Scala.  
+
+### Method for Chinese Restaurant Process Clustering  
 
 ```
-> z_result <- crp_gibbs(as.matrix(data),
+> result <- crp_train(as.matrix(data),
                           mu=c(0,0),
                           sigma_table=14,
                           alpha=0.3,
@@ -85,21 +91,31 @@ Let arguments be:
   ・ burn_in : an iteration integer of burn in.  
   ・ iteration : an iteration integer.  
 Let return be:  
-  ・ z_result : an array denotes the number of a cluster for each data i.   
+  ・ result: an array denotes result clusters. First colum is cluster number. Second is joined data number for each cluster. From next, result clusters’ mean and variance matrix.
+  
+### Predict Cluster Data Joined  
+```
+> predict <- crp_predict(as .matrix(data), result)
+```
+  
+Let arguments be:
+  • data: a matrix of data for clustering. row is each data i and column is dimensions of each data i.  
+  • result: return result from method "crp_train".  
+Let return be:  
+  • predict: an array denotes first colum is joined cluster and nexts are joined probability for each result cluster.
 
 ### Visualization Method
 
 ```
-> crp_graph_2d(as.matrix(data), z_result)
+> crp_plot ( as.matrix(data), predict)
 ```
 
-This method exhibits a two dimensional graph for the method "crp_gibbs".  
-Let arguments be:  
-  ・ data : a matrix of data for clustering. Row is each data i and column is dimensions of each data i.  
-  ・ z_result : an array denotes the number of a cluster for each data i and it is the output of the method "crp_gibbs".  
+This method exhibits multi dimentional plot matrix. Let arguments be:  
+  • data: a matrix of data for clustering. Row is each data i and column is dimensions of each data i.  
+  • predict: return predict from method "crp_predict".  
 
 ## Example
-Data is generated from normal distributions and parameters are set as mu=c(0,0), alpha=0.3, sigmatable=14, rho_0=0.1, burnin=40, iteration=200. The result is plotted on a graph and each data joins in any cluster. The graph is given by below:
+Data is generated from normal distributions and parameters are set as mu=c(0,0), alpha=1, sigmatable=1, rho_0=1, burnin=100, iteration=1000. The result is plotted on a graph and each data joins in any cluster. The graph is given by below:
 
 ![equa](./readme_images/figure_1.png "eque")
 

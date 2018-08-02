@@ -113,7 +113,7 @@ This method exhibits multi dimentional plot matrix. Let arguments be:
   • predict: return predict from method "crp_predict".  
 
 ## Example
-Data is generated from ten normal distributions and parameters are set as mu=c(0,0), alpha=1, sigmatable=1, rho_0=1, burnin=100, iteration=1000. The result is plotted on a graph and each data joins in any cluster. The graph is given by below:
+Data is generated from ten normal distributions and parameters are set as mu=c(0,0,0,0,0,0,0,0,0,0), alpha=1, sigmatable=1, rho_0=1, burnin=100, iteration=1000. The result is plotted on a graph and each data joins in any cluster. The graph is given by below:
 
 ![equa](./readme_images/figure_1.png "eque")
 

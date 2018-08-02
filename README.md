@@ -93,7 +93,7 @@ Let return be:
   
 ### Predict Cluster Data Joined  
 ```
-> predict <- crp_predict(as .matrix(data), result)
+> predict <- crp_predict(as.matrix(data), result)
 ```
   
 Let arguments be:
@@ -105,7 +105,7 @@ Let return be:
 ### Visualization Method
 
 ```
-> crp_plot ( as.matrix(data), predict)
+> crp_plot(as.matrix(data), predict)
 ```
 
 This method exhibits multi dimentional plot matrix. Let arguments be:  
@@ -117,7 +117,7 @@ Data is generated from normal distributions and parameters are set as mu=c(0,0),
 
 ![equa](./readme_images/figure_1.png "eque")
 
-　　　　　　　　　　　　　　　　　　　　　Figure 1. CRP clustering result
+Figure 1. CRP clustering result
 
 ## Conclusions
 Chinese restaurant process clustering was implemented and explained how to use it. Computer resources are limited. Computer processing power is the most important problem. After this, several improvements are planed. Please send suggestions and report bugs to okadaalgorithm@gmail.com.

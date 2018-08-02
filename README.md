@@ -96,7 +96,7 @@ Let return be:
 > predict <- crp_predict(as.matrix(data), result)
 ```
   
-Let arguments be:
+Let arguments be:  
   • data: a matrix of data for clustering. row is each data i and column is dimensions of each data i.  
   • result: return result from method "crp_train".  
 Let return be:  

@@ -71,11 +71,11 @@ grams are compiled java archive. If you are interested in source codes by Scala.
 ```
 > result <- crp_train(as.matrix(data),
                           mu=c(0,0),
-                          sigma_table=14,
-                          alpha=0.3,
-                          ro_0=0.1,
-                          burn_in=40,
-                          iteration=200
+                          sigma_table=1,
+                          alpha=1,
+                          ro_0=1,
+                          burn_in=100,
+                          iteration=1000
                         )
 ```
 

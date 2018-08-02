@@ -63,7 +63,7 @@ For online help facilities or the details of a particular command (such as the f
 
 ### Implemented by Scala
 
-This package is implemented by Scala. Please install Scala compiler version 2.12.6. Programs are compiled java archive. If you are interested in source codes by Scala.  
+This package is implemented by Scala. Please install Scala compiler version 2.12.6. Programs are compiled java archive. If you are interested in source codes by Scala, Please read src directory.
 
 ### Method for Chinese Restaurant Process Clustering  
 

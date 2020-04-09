@@ -1,1 +1,2 @@
+*.scala linguist-language=r
 src/* linguist-vendored

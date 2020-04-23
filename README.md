@@ -2,6 +2,20 @@
   
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/CRPClustering)](http://cran.r-project.org/package=CRPClustering)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/CRPClustering)](http://cran.rstudio.com/web/packages/CRPClustering/index.html)
+
+## NEWS  
+1.4 (2020-04-12)  
+  * We implemented by Rcpp. We change main methods.  
+  * we delete mu_0 and sigma_table and ro_0 parameters in crp_train method.  
+  * we change a data parameter of a matrix type into type of a data.frame in crp_train method.  
+  * we change return parameters in crp_train method.  
+  * we add a plot parameter of logical type in order to plot clustering result in crp_train method.   
+  * we add crp_plot_z method.  
+  
+1.3 (2018-08-01)  
+  * we implemented by Scala. We change main methods.  
+  
+
 ## Abstract
 Clustering is a scientific method which finds the clusters of data and many related methods are traditionally researched. Bayesian nonparametrics is statistics which can treat models having infinite parameters. Chinese restaurant process is used in order to compose Dirichlet process. The clustering which uses Chinese restaurant process does not need to decide the number of clusters in advance. This algorithm automatically adjusts it. Then, this package can calculate clusters in addition to entropy as the ambiguity of clusters.
 

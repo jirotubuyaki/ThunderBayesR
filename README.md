@@ -82,7 +82,7 @@ Let arguments be:
   ・ alpha : a numeric of a CRP concentration rate.  
   ・ burn_in : an iteration integer of burn in.  
   ・ iteration : an iteration integer.  
-  ・ plot : a logical type of whether plot a result or not.
+  ・ plot : a logical type of whether plot a result or not.  
 Let return be:  
   ・ result : a list has three elements. The "clusters" is cluster number and joined data number and cluster’s mean and variance matrix. The "max" is the cluster number for data i join in. The "z" is the iteration history for an each data i join in clusters.  
   

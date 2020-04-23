@@ -3,10 +3,10 @@
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/CRPClustering)](http://cran.r-project.org/package=CRPClustering)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/CRPClustering)](http://cran.rstudio.com/web/packages/CRPClustering/index.html)
 ## Abstract
-Clustering is a scientific method which finds the clusters of data and many related methods are traditionally researched for long terms. Bayesian nonparametrics is statistics which can treat models having infinite parameters. Chinese restaurant process is used in order to compose Dirichlet process. The clustering which uses Chinese restaurant process does not need to decide the number of clusters in advance. This algorithm automatically adjusts it. Then, this package can calculate clusters in addition to entropy as the ambiguity of clusters.
+Clustering is a scientific method which finds the clusters of data and many related methods are traditionally researched. Bayesian nonparametrics is statistics which can treat models having infinite parameters. Chinese restaurant process is used in order to compose Dirichlet process. The clustering which uses Chinese restaurant process does not need to decide the number of clusters in advance. This algorithm automatically adjusts it. Then, this package can calculate clusters in addition to entropy as the ambiguity of clusters.
 
 ## Introduction
-Clustering is a traditional method in order to find the clusters of data and many related methods are studied for several decades. The most popular method is called as K-means [@Hartigan1979]. K-means is an algorithmic way in order to search the clusters of data. However its method needs to decide the number of clusters in advance. Therefore if the data is both high dimensions and a complex, deciding the accurate number of clusters is difficult and normal Bayesian methods are too. For that reason, Bayesian nonparametric methods are gradually important as computers are faster than ever. In this package, we implemented Chinese restaurant process clustering  (CRP) [@Pitman1995]. CRP can compose infinite dimensional parameters as Dirichlet process [@Ferguson1973]. It acts like customers who sit at tables in a restaurant and has a probability to sit at a new table. As a result, Its model always automates clustering. Moreover, we added the method which calculates the entropy [@Elliott1999] of clusters into this package. It can check the ambiguity of the result. Then, we explain the clustering model and how to use it in detail. Finally, an example is plotted on a graph.
+Clustering is an analytical method in order to find the clusters of data and many related methods are proposed. K-means[1] and Hierarchical clustering[2] are famous algorithmic methods. Density-based clustering[3] is the method that finds clusters by calculating a concentration of data. In statistical methods, there are stochastic ways such as bayesian clustering[4]. However these methods need to decide the number of clusters in advance. Therefore if the data is both high dimensions and a complex, deciding the accurate number of clusters is difficult. Bayesian nonparametric method[5] composes infinite parameters by Dirichlet process[6]. Dirichlet process is the infinite dimensional discrete distribution that is composed by Stocastic processes like a chinese restaurant process (CRP)[7] or stick-breaking process[8]. CRP does not need to decide the number of clusters in advance. This algorithm automatically adjusts it. We implement the CRP Clustering and the method which calculates the entropy[9] into R package. Then, we explain the clustering model and how to use it in detail and execute simulation by example datasets.
 
 ## Background
 ### Chinese Restaurant Process
@@ -17,7 +17,7 @@ Chinese restaurant process is a metaphor looks like customers sit at a table in 
 where n^i_k denotes the number of the customers at a table k except for i and α is a concentration parameter.
 
 ### Markov Chain Monte Carlo Methods for Clustering
-Markov chain Monte Carlo (MCMC) methods [@Liu1994] are algorithmic methods to sample from posterior distributions. If conditional posterior distributions are given by models, it is the best way in order to acquire parameters as posterior distributions. The algorithm for this package is given by    
+Markov chain Monte Carlo (MCMC) methods[10] are algorithmic methods to sample from posterior distributions. If conditional posterior distributions are given by models, it is the best way in order to acquire parameters from posterior distributions. The algorithm for this package is given by  
 
 Many iterations continue on below:  
 
@@ -27,11 +27,11 @@ i) Sampling z_i for each i (i = 1,2, ・・・,n)
 
 where k is a k th cluster and i is a i th data. mu and sigma_table arguments in the "crp_gibbs" function are generating mu_k parameter for new table.  
 
-ii) Sampling u_k for each k (k = 1,2, ・・・,∞)
+ii) Calculating parameters for each k (k = 1,2, ・・・,∞)
 
 ![equa](./readme_images/equation_3.png "eque")
 
-Sigma_k is a variance-covariance matrix of k th cluster. i and j are rows and columns' number of Sigma_k. rho_0 is a argument ro_0 in "crp_gibbs" function. First several durations of iterations which are called as "burn in" are error ranges. For that reason, "burn in" durations are abandoned.  
+Iterations i) ii) continue by iteration number, and Σ k is a variance-covariance matrix of kth cluster. i and j are rows and columns’ number of Σ k . First several durations of iterations which are called as burn_in are error ranges. For that reason, burn_in durations are abandoned.
 
 ### Clusters Entropy
 Entropy denotes the ambiguity of clustering. As a result of a simulation, data x_i joins in a particular table. From the total numbers n_k of the particular table k at the last iteration, a probability p_k at each cluster k is calculated. The entropy equation is given by
@@ -53,7 +53,7 @@ Once the packages are installed, it needs to be made accessible to the current R
 > library(CRPClustering)
 ```
 
-For online help facilities or the details of a particular command (such as the function crp_gibbs) you can type:
+For online help facilities or the details of a particular command (such as the function crp_train) you can type:
 
 ```
 > help(package="CRPClustering")
@@ -61,62 +61,79 @@ For online help facilities or the details of a particular command (such as the f
 
 ## Methods
 
-### Implemented by Scala
+### Implemented by C++ using GNU Scientific Library
 
-This package is implemented by Scala. Please install Scala compiler version 2.12.6. Programs are compiled java archive. If you are interested in source codes by Scala, Please read src directory.
+This package is implemented by C++. Please install GNU Scientific Library. Programs are compiled. If you are interested in source codes by R and C++. Please read src directory.
 
 ### Method for Chinese Restaurant Process Clustering  
 
 ```
-> result <- crp_train(as.matrix(data),
-                          mu=c(0,0),
-                          sigma_table=1,
-                          alpha=1,
-                          ro_0=1,
-                          burn_in=100,
-                          iteration=1000
-                        )
+> result <- crp_train (data ,
+                       alpha =1 ,
+                       burn_in =100 ,
+                       iteration =1000
+                       plot = TRUE
+                      )
 ```
 
 This method calculates CRP clustering.  
 Let arguments be:  
-  ・ data : a matrix of data for clustering. row is each data i and column is dimensions of each data i.  
-  ・ mu : a vector of center points of data. If data is 3 dimensions, a vector of 3 elements like "c(2,4,7)".  
-  ・ sigma_table : a numeric of table position variance.  
+  ・ data : a data.frame of data for clustering. row is each data i and column is dimensions of each data i.  
   ・ alpha : a numeric of a CRP concentration rate.  
-  ・ ro_0 : a numeric of a CRP mu change rate.  
   ・ burn_in : an iteration integer of burn in.  
   ・ iteration : an iteration integer.  
+  ・ plot : a logical type of whether plot a result or not.
 Let return be:  
-  ・ result: an array denotes result clusters. First colum is cluster number. Second is joined data number for each cluster. From next, result clusters’ mean and variance matrix.
+  ・ result : a list has three elements. The "clusters" is cluster number and joined data number and cluster’s mean and variance matrix. The "max" is the cluster number for data i join in. The "z" is the iteration history for an each data i join in clusters.  
   
-### Predict Cluster Data Joined  
+### Predict Which Cluster Data Join In  
+This method predicts which cluster data join in.   
+
 ```
-> predict <- crp_predict(as.matrix(data), result)
+> predict <- crp_predict(data, result)
 ```
   
 Let arguments be:  
-  • data: a matrix of data for clustering. row is each data i and column is dimensions of each data i.  
-  • result: return result from method "crp_train".  
+  • data: a data.frame of data for clustering. row is each data i and column is dimensions of each data i.   
+  • result: return from method "crp_train".  
 Let return be:  
   • predict: an array denotes first colum is joined cluster and nexts are joined probability for each result cluster.
 
-### Visualization Method
+### Matrix Visualization For Predicting
 
 ```
-> crp_plot(as.matrix(data), predict)
+> crp_plot(data, predict)
 ```
 
 This method exhibits multi dimentional plot matrix. Let arguments be:  
-  • data: a matrix of data for clustering. Row is each data i and column is dimensions of each data i.  
-  • predict: return predict from method "crp_predict".  
+  • data: a data.frame of data for clustering. Row is each data i and column is dimensions of each data i.  
+  • predict: return from method "crp_predict".    
 
-## Example
-Data is generated from ten dimentional normal distributions and parameters are set as mu=c(0,0,0,0,0,0,0,0,0,0), alpha=1, sigmatable=1, rho_0=1, burnin=100, iteration=1000. The result is plotted on a graph and each data joins in any cluster. The graph is given by below:
+### Visualization of Clusters’ Probability Data i Join in.  
 
-![equa](./readme_images/figure_1.png "eque")
+```
+> crp_plot_z (i , result = result )
+```
 
-Figure 1. CRP clustering result
+This method exhibits multi dimentional plot matrix. Let arguments be:  
+  • i: a number of an each data i.  
+  • result: return from crp_train method.    
+
+
+## Simulation
+We use dataset from Clustering basic benchmark( http://cs.joensuu.fi/sipu/datasets/ )[11]. If increase α parameter, new clusters tend to increase. burin_in iterations are abandoned. The result is plotted and each data joins in any cluster. The graph is given by below:
+
+![equa](./readme_images/Rplot01.png "eque")
+
+Figure 1: Aggregation: Data is 788 elements and 2 dimentions. Parameters are set as alpha=1, burnin=100, iteration=1000.  
+
+![equa](./readme_images/Rplot02.png "eque")  
+
+Figure 2: 3 normal distribution: Data is 1000 elements and 2 dimentions. Parameters are set as alpha=0.5, burnin=100, iteration=1000.  
+
+![equa](./readme_images/Rplot.png "eque")  
+
+Figure 3: 10 dimentional normal distributions: Data is generated from 10 dimentional normal distributions and parameters are set as alpha=1, burnin=100, iteration=1000.  
 
 ## Conclusions
 Chinese restaurant process clustering was implemented and explained how to use it. Computer resources are limited. Computer processing power is the most important problem. After this, several improvements are planed. Please send suggestions and report bugs to okadaalgorithm@gmail.com.
@@ -125,13 +142,24 @@ Chinese restaurant process clustering was implemented and explained how to use i
 This activity would not have been possible without the support of my family and friends. To my family, thank you for much encouragement for me and inspiring me to follow my dreams. I am especially grateful to my parents, who supported me all aspects.  
 
 ## References
-Ferguson, Thomas. 1973. “Bayesian Analysis of Some Nonparametric Problems,” Annals of Statistics. 1 (2):
-209–230.  
+[1] Hartigan, J. A.; Wong, M. A. Algorithmas136: A k-means clustering algorithm . Journal of the Royal Statistical Society, Series C. 28 (1): 100–108. JSTOR 2346830, 1979.  
 
-Hartigan, M. A., J. A.; Wong. 1979. “Algorithm as 136: A K-Means Clustering Algorithm,” Journal of the Royal Statistical Society, SeriesC. 28 (1): 100–108. JSTOR 2346830.
+[2] Rokach, Lior, and Oded Maimon. "Clustering methods." Data mining and knowledge discovery handbook. Springer US, 2005. 321-352.  
 
-Liu, Jun S. 1994. “The Collapsed Gibbs Sampler in Bayesian Computations with Applications to a Gene Regulation Problem,” Journal of the American Statistical Association 89 (427): 958–966.
+[3] Ester, Martin; Kriegel, Hans-Peter; Sander, Jörg; Xu, Xiaowei (1996). Simoudis, Evangelos; Han, Jiawei; Fayyad, Usama M. (eds.). A density-based algorithm for discovering clusters in large spatial databases with noise. Proceedings of the Second International Con ference on Knowledge Discovery and Data Mining (KDD-96). AAAI Press. pp. 226–231.  
 
-Pitman, Jim. 1995. “Exchangeable and Partially Exchangeable Random Partitions,” Probability Theory and Related Fields 102 (2): 145–158.  
+[4] John W Lau & Peter J Green (2007) Bayesian Model-Based Clustering Procedures, Journal of Computational and Graphical Statistics, 16:3, 526-558, DOI: 10.1198/106186007X238855.  
 
-Yngvason, Elliott H. Lieb; Jakob. 1999. “The Physics and Mathematics of the Second Law of Thermodynamics,” Physics Reports Volume:310 Issue:1 1–96.  
+[5] Muller Peter, et al. Bayesian Nonparametric Data Analysis. Springer, 2015.  
+
+[6] Ferguson, Thomas. Bayesian analysis of some nonparametric problems. Annals of Statistics. 1 (2): 209–230., 1973.  
+
+[7] Pitman, Jim. Exchangeable and partially exchangeable random partitions. Probability Theory and Related Fields 102 (2): 145–158., 1995.  
+
+[8] Broderick, Tamara, et al. “Beta Processes, Stick-Breaking and Power Laws.” Bayesian Analysis, vol. 7, no. 2, 2012, pp. 439–476., doi:10.1214/12-ba715.  
+
+[9] Elliott H. Lieb; Jakob Yngvason. The physics and mathematics of the second law of thermodynamics. Physics Reports Volume:310 Issue:1 1-96., 1999.  
+
+[10] Liu, Jun S. The collapsed gibbs sampler in bayesian computations with applications to a gene regulation problem. Journal of the American Statistical Association 89 (427): 958–966., 1994.  
+
+[11] P. Fränti and S. Sieranoja K-means properties on six clustering benchmark datasets. Applied Intelligence, 48 (12), 4743-4759, December 2018.

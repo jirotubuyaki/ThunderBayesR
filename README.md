@@ -33,7 +33,7 @@ where n^i_k denotes the number of the customers at a table k except for i and α
 ### Markov Chain Monte Carlo Methods for Clustering
 Markov chain Monte Carlo (MCMC) methods[10] are algorithmic methods to sample from posterior distributions. If conditional posterior distributions are given by models, it is the best way in order to acquire parameters from posterior distributions. The algorithm for this package is given by  
 
-Many iterations continue on below:  
+i) ii) iterations continue on below:  
 
 i) Sampling z_i for each i (i = 1,2, ・・・,n)
 
@@ -45,7 +45,7 @@ ii) Calculating parameters for each k (k = 1,2, ・・・,∞)
 
 ![equa](./readme_images/equation_3.png "eque")
 
-Iterations i) ii) continue by iteration number, and Σ k is a variance-covariance matrix of kth cluster. i and j are rows and columns’ number of Σ k . First several durations of iterations which are called as burn_in are error ranges. For that reason, burn_in durations are abandoned.
+Iterations i) ii) continue by iteration number, and Σ k is a variance-covariance matrix of kth cluster. Cov is covariance. i and j are rows and columns’ number of Σ k ij and Σ new ij . First several durations of iterations which are called as burn_in are error ranges. For that reason, burn_in durations are abandoned.
 
 ### Clusters Entropy
 Entropy denotes the ambiguity of clustering. As a result of a simulation, data x_i joins in a particular table. From the total numbers n_k of the particular table k at the last iteration, a probability p_k at each cluster k is calculated. The entropy equation is given by

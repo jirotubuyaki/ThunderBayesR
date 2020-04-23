@@ -4,39 +4,64 @@
 \alias{crp_train}
 \title{Markov chain Monte Carlo methods for CRP Clustering}
 \usage{
-crp_train(data, mu = c(0, 0), sigma_table = 1, alpha = 1, ro_0 = 1,
-  burn_in = 100, iteration = 1000)
+crp_train(data = data, alpha = 1, burn_in = 100, iteration = 1000,
+  plot = TRUE)
 }
 \arguments{
-\item{data}{: a matrix of data for clustering. Row is each data_i and column is dimensions of each data_i.}
-
-\item{mu}{: a vector of center points of data. If data is 3 dimensions, a vector of 3 elements like c(2,4,2).}
-
-\item{sigma_table}{: a numeric of CRP variance.}
+\item{data}{: a data.frame of data for clustering. Row is each data_i and column is dimensions of each data_i.}
 
 \item{alpha}{: a numeric of a CRP concentrate rate.}
 
-\item{ro_0}{: a numeric of a CRP mu change rate.}
-
-\item{burn_in}{:  an iteration integer of burn in.}
+\item{burn_in}{: an abandoned iteration integer.}
 
 \item{iteration}{: an iteration integer.}
+
+\item{plot}{: a logical type of whether plot a result or not.}
 }
 \value{
-result : an array expresses cluster number and joined data number and cluster's mean and variance matrix.
+result: a list has three elements. The "clusters" is cluster number and joined data number and cluster's mean and variance matrix. The "max" is the cluster number for data i join in. The "z" is the iteration history for each data i join in paticular cluster.
 }
 \description{
 Markov chain Monte Carlo methods for CRP Clustering
 }
 \examples{
-data <- matrix(c(1.8,1.9,2.1,2.5,5.6,5.2,6,6.1), 4, 2)
+data <- array(0, dim=c(30, 2))
+data[1, ] <- c(-2.43185475495409,2.03311203531621)
+data[2, ] <- c(-0.408783769317068,1.75003135626229)
+data[3, ] <- c(1.55675133967144,-1.56420523659905)
+data[4, ] <- c(0.657368060264562,-0.97383866031164)
+data[5, ] <- c(0.068212889245427,1.13418709295999)
+data[6, ] <- c(-1.73561815639666,1.81918235905252)
+data[7, ] <- c(1.03672457449158,-1.8569658734557)
+data[8, ] <- c(1.76100672727452,0.0761038984873157)
+data[9, ] <- c(1.65809552931208,-1.68283298969143)
+data[10, ] < c(-1.07764013453211,-0.32226716632212)
+data[11, ] <- c(-0.261606415434224,1.75394513146391)
+data[12, ] <- c(-0.70752394485502,-0.259888201772335)
+data[13, ] <- c(-1.38617236009739,-1.24305620615396)
+data[14, ] <- c(1.51663782772836,0.0161396983547837)
+data[15, ] <- c(-0.914042151747574,1.76495756094862)
+data[16, ] <- c(0.282796296711756,-0.0492279088948679)
+data[17, ] <- c(1.08831769386705,-0.954851525684512)
+data[18, ] <- c(-0.932745904717591,0.762387679372797)
+data[19, ] <- c(1.69617665862324,-1.11969182200371)
+data[20, ] <- c(-0.767903781929682,1.19342570049071)
+data[21, ] <- c(0.401780436172324,-0.457100405625718)
+data[22, ] <- c(0.98090840279728,-0.597487493647301)
+data[23, ] <- c(-1.29713416781756,0.765401326146141)
+data[24, ] <- c(-1.7620625656782,2.02686171889867)
+data[25, ] <- c(1.68478051448753,-0.806918914294913)
+data[26, ] <- c(0.466622923887724,0.197650126048092)
+data[27, ] <- c(1.4851646799543,-1.53289806708663)
+data[28, ] <- c(-2.12370907063395,1.6471140089684)
+data[29, ] <- c(-0.660332309091402,1.73989289688085)
+data[30, ] <- c(-0.957127602683051,-0.0156523076019355)
+data <- round(data, 3)
 result <- crp_train(
-                      data,
-                      mu=c(0,0),
-                      sigma_table=1,
+                      data = data,
                       alpha=1,
-                      ro_0=1,
-                      burn_in=100,
-                      iteration=1000
+                      burn_in=10,
+                      iteration=100,
+                      plot=TRUE
                      )
 }

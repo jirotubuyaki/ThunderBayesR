@@ -7,13 +7,13 @@
 crp_predict(data = data, result = result)
 }
 \arguments{
-\item{data:}{a matrix of data for clustering. Row is each data_i and column is dimensions of each data_i.}
+\item{data}{: a data.frame of data for predicting which cluster data joins in. Row is each data_i and column is dimensions of each data_i.}
 
-\item{result:}{an array expresses the return of crp_train method.}
+\item{result}{: a list returned from crp_train method.}
 }
 \value{
-predict:an array expresses a joined cluster number and joined probability for each cluster.
+predict: an array expresses a joined cluster number and joined probability in each cluster. 
 }
 \description{
-Predict The Clusters' Probability that Data Joins in.
+Predict The Clusters' Probability that Data Joins in. 
 }

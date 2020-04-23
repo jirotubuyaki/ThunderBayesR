@@ -1,0 +1,2 @@
+PKG_CXXFLAGS"="-std=c++11"
+PKG_LIBS = `$(R_HOME)/bin/Rscript -e "RcppGSL:::LdFlags()"`

@@ -1,5 +1,5 @@
 // [[Rcpp::depends(RcppGSL)]]
-//------------------------------------------------------------------------------Welcome
+//----------------------------------------------------------------------------------------Welcome
 //                     Chinese Restaurant Process MCMC
 //                                                                   2020/04/22
 //                                                                 Masashi Okada
@@ -31,75 +31,10 @@
 #include <gsl/gsl_math.h>
 #include <gsl/gsl_eigen.h>
 #include <gsl/gsl_linalg.h>
+#include <gsl/gsl_statistics_double.h>
+#include <gsl/gsl_statistics_int.h>
 
 using namespace Rcpp;
-
-double mean(RcppGSL::matrix<double> &data_in, int i_in){
-  double data_sum = 0;
-  int count = 0;
-  for(int o = 0; o < data_in->size1; o++){
-    data_sum = data_sum + data_in(o, i_in);
-    count = count + 1; 
-  }
-  return data_sum / count;
-}
-double cov(RcppGSL::matrix<double> &data_in, int i_in, int j_in, double i_mean_in, double j_mean_in){
-  double data_sum = 0;
-  int count = 0;
-  for(int o = 0; o < data_in->size1; o++){
-    data_sum += (data_in(o, i_in) - i_mean_in) * (data_in(o, j_in) - j_mean_in);
-    count = count + 1;
-  }
-  return data_sum /count;
-}
-double cal_mean(RcppGSL::matrix<double> &data_in, int dim_in, int j_in, RcppGSL::matrix<int> &z_in,int t_in, int k_in){
-  double data_sum = 0;
-  int count = 0;
-  for(int o = 0; o < data_in->size1; o++){
-    if(z_in(t_in, o) == j_in){
-      data_sum = data_sum + data_in(o, k_in);
-      count = count + 1; 
-    }
-  }
-
-  return data_sum / count;
-}
-
-double cal_cov(RcppGSL::matrix<double> &data_in, int dim_in, int j_in, RcppGSL::matrix<int> &z_in,int t_in, int k_in, int l_in, double k_mean_in, double l_mean_in){
-  double data_sum = 0;
-  int count = 0;
-  for(int o = 0; o < data_in->size1; o++){
-    if(z_in(t_in, o) == j_in){
-      data_sum += (data_in(o, k_in) - k_mean_in) * (data_in(o, l_in) - l_mean_in);
-      count = count + 1;
-    }
-  }
-  return data_sum /count;
-}
-
-double cal_mean_result(RcppGSL::matrix<double> &data_in, int dim_in, int j_in, RcppGSL::vector<double> &max_in, int k_in){
-  double data_sum = 0;
-  int count = 0;
-  for(int o = 0; o < data_in->size1; o++){
-    if(max_in[o] == j_in){
-      data_sum = data_sum + data_in(o, k_in);
-      count = count + 1; 
-      }
-   }
-  return data_sum / count;
-}
-
-double cal_cov_result(RcppGSL::matrix<double> &data_in, int dim_in, int j_in, RcppGSL::vector<double> &max_in, int k_in, int l_in, double k_mean_in, double l_mean_in){
-  double data_sum = 0;
-  int count = 0;
-  for(int o = 0; o< data_in->size1; o++){
-    if(max_in[o] == j_in){
-      data_sum += (data_in(o, k_in) - k_mean_in) * (data_in(o, l_in) - l_mean_in);
-      count = count + 1;
-    }
-  }
-  return data_sum / count;
-}
 
 // [[Rcpp::export]]
 List gibbs(const int data_length, const int dim, const RcppGSL::matrix<double> &data_raw, const RcppGSL::matrix<double> &data_raw_result, const double alpha, const int burn_in, const int iteration) {
@@ -124,40 +59,77 @@ List gibbs(const int data_length, const int dim, const RcppGSL::matrix<double> &
   }
 
   RcppGSL::vector<double> mu_0(dim);
-  RcppGSL::matrix<double> sigma_new(dim, dim);
+  RcppGSL::matrix<double> sigma_new_init(dim, dim);
   for(int i = 0; i < dim; i++){
-    double i_mean = mean(data, i);
-    mu_0[i] = i_mean;
-    for(int j = 0; j < dim; j++){
-      double i_mean = mean(data, i);
-      double j_mean = mean(data, j);
-      sigma_new(i, j) = cov(data, i, j, i_mean, j_mean);
+    double col[data_length];
+    RcppGSL::vector_view<double> col_view = gsl_matrix_column(data, i);
+    for(int j = 0; j < data_length; j++){
+      col[j] = col_view[j];
+    }
+    double mean = gsl_stats_mean(col, 1, data_length);
+    mu_0[i] = mean;
+  }
+  for (int i = 0; i < dim; i++) {
+    for (int j = i; j < dim; j++) {
+      RcppGSL::vector_view<double> col_view_i = gsl_matrix_column(data, i);
+      RcppGSL::vector_view<double> col_view_j = gsl_matrix_column(data, j);
+      double col_i[data_length];
+      double col_j[data_length];
+      for(int k = 0; k < data_length; k++){
+        col_i[k] = col_view_i[k];
+        col_j[k] = col_view_j[k];
+      }
+      double cov = gsl_stats_covariance(col_i, 1,col_j, 1, data_length);
+      sigma_new_init(i, j) = cov;
+      sigma_new_init(j, i) = cov;
     }
   }
   RcppGSL::vector<double> eval(dim);
   RcppGSL::Matrix evec(dim, dim);
   gsl_eigen_symmv_workspace * w = gsl_eigen_symmv_alloc(dim);
-  gsl_eigen_symmv(sigma_new, eval, evec, w);
+  gsl_eigen_symmv(sigma_new_init, eval, evec, w);
   gsl_eigen_symmv_free(w);
   gsl_eigen_symmv_sort(eval, evec, GSL_EIGEN_SORT_ABS_ASC); 
   int flag = 0;
   for (int k = 0; k < dim; k++) {
     if(eval[k] <= 0){
       flag = 1;
-      Rcout << "Warning: the covariance-matrix is not positive definite." << "\n";
+      Rcout << "Warning: Dataset's covariance-matrix is not positive definite." << "\n";
       for(int l = 0; l < dim; l++){
         for(int m = 0; m < dim; m++){
-          sigma_new(l, m) = 1;
+          sigma_new_init(l, m) = 1;
         }
       }
     }
   }
   eval.free();
   evec.free();
-  if(flag == 0){
-    gsl_linalg_cholesky_decomp(sigma_new);
-  }
+  RcppGSL::matrix<double> sigma_new(dim, dim);
+  RcppGSL::matrix<double> sigma_new_mem(dim, dim);
 
+  if(flag == 0){
+    double s;
+    for (int i = 0; i < dim; i++) {
+      for (int j = 0; j < i; j++) {
+      s = sigma_new_init(i,j);
+        for (int k = 0; k < j; k++){
+          s = s - sigma_new(i,k) * sigma_new(j,k);
+        }
+        sigma_new(i,j) = s / sigma_new(j,j);
+      }
+      s = sigma_new_init(i,i);
+      for (int k = 0; k < i; k++){
+        double sigma_new_in = sigma_new(i, k);
+        s = s - pow(sigma_new_in, 2.0);
+      }
+      sigma_new(i,i) = sqrt(s);
+    }
+  }
+  for(int l = 0; l < dim; l++){
+    for(int m = 0; m < dim; m++){
+      sigma_new_mem(l, m) = sigma_new(l, m);
+    }
+  }
   std::vector<std::vector<double>> mu_k;
   std::vector<std::vector<std::vector<double>>> sigma_k;
   mu_k.push_back(std::vector<double>(dim));
@@ -214,7 +186,7 @@ List gibbs(const int data_length, const int dim, const RcppGSL::matrix<double> &
         prob_k[j] = prob_k_tmp * prob_k_CRP;
         if(isnan(prob_k_tmp)){
           prob_k[j] = 0;
-          Rcout << "Warning: Joined Probability is 0.\n";
+          Rcout << "Warning: "<< j << "th cluster's probability is zero.\n";
         }
       }
       gsl_ran_multivariate_gaussian(r, mu_0, sigma_new, sample);
@@ -237,7 +209,7 @@ List gibbs(const int data_length, const int dim, const RcppGSL::matrix<double> &
       prob_k[k_count + 1] = prob_k_tmp * prob_k_CRP;
       if(isnan(prob_k_tmp)){
         prob_k[k_count + 1] = 0;
-        Rcout << "Warning: Joined Probability is 0.\n";
+        Rcout << "Warning: "<< k_count + 1 << "th cluster's probability is zero.\n";
       }
       double ppp[k_count + 1];
       for(int j = 0; j<= k_count + 1; j++){
@@ -258,7 +230,7 @@ List gibbs(const int data_length, const int dim, const RcppGSL::matrix<double> &
         for(int k = 0; k < dim; k++){
           mu_k[k_count][k] = sample[k];
           for(int l = 0; l < dim; l++){
-            sigma_k[k_count][k][l] = sigma_new(k, l) / k_count_used + (sigma_new(k, l) / k_count_used) * ((data_length / k_count_used) / data_length);
+            sigma_k[k_count][k][l] = sigma_new(k, l) + sigma_new(k, l) * ((data_length / k_count_used) / data_length);
           }
         }
       }
@@ -280,14 +252,38 @@ List gibbs(const int data_length, const int dim, const RcppGSL::matrix<double> &
   }
   for(int j = 0; j <=k_count; j++){
     if(n_k[j] > 3){
+      count = 0;
       k_count_used = k_count_used + 1;
       RcppGSL::matrix<double> sigma_v_in(dim, dim);
-      for(int k = 0;k < dim; k++){
-        double k_mean = cal_mean(data,dim, j, z, t, k);
-        mu_k[j][k] = k_mean;
+      RcppGSL::matrix<double> data_k(n_k[j], dim);
+      for(int k = 0; k < data_length; k++){
+        if(z(t, k) == j){
+          RcppGSL::vector_view<double> data_k_row = gsl_matrix_row(data, k);
+          gsl_matrix_set_row(data_k, count, data_k_row);
+          count = count + 1;
+        }
+      }
+      for(int k = 0; k < dim; k++){
+        double col[n_k[j]];
+        RcppGSL::vector_view<double> col_view = gsl_matrix_column(data_k, k);
+        for(int l = 0; l < n_k[j]; l++){
+          col[l] = col_view[l];
+        }
+        double mean = gsl_stats_mean(col, 1, n_k[j]);
+        mu_k[j][k] = mean;
+      }
+      for(int k = 0; k < dim; k++){
         for(int l = 0; l < dim; l++){
-          double l_mean = cal_mean(data, dim, j, z, t, l);
-          sigma_v_in(k, l) = cal_cov(data, dim, j, z, t, k, l, k_mean, l_mean);
+          RcppGSL::vector_view<double> col_view_k = gsl_matrix_column(data_k, k);
+          RcppGSL::vector_view<double> col_view_l = gsl_matrix_column(data_k, l);
+          double col_k[n_k[j]];
+          double col_l[n_k[j]];
+          for(int m = 0; m < n_k[j]; m++){
+            col_k[m] = col_view_k[m];
+            col_l[m] = col_view_l[m];
+          }
+          double cov = gsl_stats_covariance(col_k, 1,col_l, 1, n_k[j]);
+          sigma_v_in(k, l) = cov;
           sigma_v_in(k, l) = sigma_v_in(k, l) +  sigma_v_in(k, l) * (n_k[j] / data_length);
           sigma_new(k, l) = sigma_new(k, l) + sigma_v_in(k, l);
         }
@@ -302,29 +298,112 @@ List gibbs(const int data_length, const int dim, const RcppGSL::matrix<double> &
       for (int k = 0; k < dim; k++) {
         if(eval[k] <= 0){
           flag = 1;
-          Rcout << "Warning: the covariance-matrix is not positive definite." << "\n";
+          Rcout << "Warning:" << j << "th cluster's covariance-matrix is not positive definite." << "\n";
           for(int l = 0; l < dim; l++){
             for(int m = 0; m < dim; m++){
               if(k_count_used_before == 0){
                 k_count_used_before = 1;
               }
-              sigma_k[j][l][m] = sigma_new(l, m) / k_count_used_before + (sigma_new(l, m) / k_count_used_before) * ((data_length / k_count_used_before) / data_length);
+              sigma_k[j][l][m] = sigma_new_mem(l, m);
             }
           }
         }
       }
+      data_k.free();
       eval.free();
       evec.free();
       if(flag == 0){
-        gsl_linalg_cholesky_decomp(sigma_v_in);
+        RcppGSL::matrix<double> L(dim, dim);
+        double s;
+        for (int i_in = 0; i_in < dim; i_in++) {
+          for (int j_in = 0; j_in < i_in; j_in++) {
+            s = sigma_v_in(i_in,j_in);
+            for (int k_in = 0; k_in < j_in; k_in++){
+              s = s - L(i_in,k_in) * L(j_in,k_in);
+            }
+            L(i_in,j_in) = s / L(j_in,j_in);
+          }
+          s = sigma_v_in(i_in,i_in);
+          for (int k_in = 0; k_in < i_in; k_in++){
+            double L_in = L(i_in, k_in);
+            s = s - pow(L_in, 2.0);
+          }
+          L(i_in,i_in) = sqrt(s);
+        }
         for(int k = 0; k < dim; k++){
-          for(int l = 0; l < dim; l++){
-            sigma_k[j][k][l] = sigma_v_in(k, l);
+          for(int l = k + 1; l < dim; l++){
+            L(k, l) = 0;
           }
         }
+        for(int k = 0; k < dim; k++){
+          for(int l = 0; l < dim; l++){
+            sigma_k[j][k][l] = L(k, l);
+          }
+        }
+        L.free();
       }
       sigma_v_in.free();
+      data_k.free();
     }
+
+  }
+  if(k_count_used == 0){
+    k_count_used = 1;
+  }
+  for(int j = 0; j < dim; j++){
+    for(int k = 0; k < dim; k++){
+      sigma_new(j, k) = sigma_new(j, k) / k_count_used;
+    }
+  }
+  RcppGSL::vector<double> eval_sigma_new(dim);
+  RcppGSL::Matrix evec_sigma_new(dim, dim);
+  gsl_eigen_symmv_workspace * w_sigma_new = gsl_eigen_symmv_alloc(dim);
+  gsl_eigen_symmv(sigma_new, eval_sigma_new, evec_sigma_new, w_sigma_new);
+  gsl_eigen_symmv_free(w_sigma_new);
+  gsl_eigen_symmv_sort(eval_sigma_new, evec_sigma_new, GSL_EIGEN_SORT_ABS_ASC); 
+  flag = 0;
+  for (int k = 0; k < dim; k++) {
+    if(eval_sigma_new[k] <= 0){
+      flag = 1;
+      Rcout << "Warning: sigma_new's covariance-matrix is not positive definite." << "\n";
+      for(int l = 0; l < dim; l++){
+        for(int m = 0; m < dim; m++){
+          sigma_new(l, m) = sigma_new_mem(l, m);
+        }
+      }
+    }
+  }
+  eval_sigma_new.free();
+  evec_sigma_new.free();
+  if(flag == 0){
+    RcppGSL::matrix<double> L(dim, dim);
+    double s;
+    for (int i_in = 0; i_in < dim; i_in++) {
+      for (int j_in = 0; j_in < i_in; j_in++) {
+        s = sigma_new(i_in,j_in);
+        for (int k_in = 0; k_in < j_in; k_in++){
+          s = s - L(i_in,k_in) * L(j_in,k_in);
+        }
+        L(i_in,j_in) = s / L(j_in,j_in);
+      }
+      s = sigma_new(i_in,i_in);
+      for (int k_in = 0; k_in < i_in; k_in++){
+        double L_in = L(i_in, k_in);
+        s = s - pow(L_in, 2.0);
+      }
+      L(i_in,i_in) = sqrt(s);
+    }
+    for(int k = 0; k < dim; k++){
+      for(int l = k + 1; l < dim; l++){
+        L(k, l) = 0;
+      }
+    }
+    for(int k = 0; k < dim; k++){
+      for(int l = 0; l < dim; l++){
+        sigma_new(k, l) = L(k, l);
+      }
+    }
+    L.free();
   }
   Rcout << "____ Iteration Start. ____\n";
   for(int t = 1; t < iteration; t++){
@@ -354,7 +433,7 @@ List gibbs(const int data_length, const int dim, const RcppGSL::matrix<double> &
           prob_k[j] = prob_k_tmp * prob_k_CRP; 
           if(isnan(prob_k_tmp)){
             prob_k[j] = 0;
-            Rcout << "Warning: Joined Probability is 0.\n";
+            Rcout << "Warning: "<< j << "th cluster's probability is zero.\n";
           }
         }
       }
@@ -370,7 +449,7 @@ List gibbs(const int data_length, const int dim, const RcppGSL::matrix<double> &
       prob_k[k_count + 1] = prob_k_tmp * prob_k_CRP;
       if(isnan(prob_k_tmp)){
         prob_k[k_count + 1] = 0;
-        Rcout << "Warning: Joined Probability is 0.\n";
+        Rcout << "Warning: "<< k_count + 1 << "th cluster's probability is zero.\n";
       }
       double ppp[k_count +1];
       for(int j = 0; j<= k_count + 1; j++){
@@ -390,7 +469,7 @@ List gibbs(const int data_length, const int dim, const RcppGSL::matrix<double> &
         for(int k = 0; k < dim; k++){
           mu_k[k_count][k] = sample[k];
           for(int l = 0; l < dim; l++){
-            sigma_k[k_count][k][l] = sigma_new(k, l) / k_count_used + (sigma_new(k, l) / k_count_used) * ((data_length / k_count_used) / data_length);
+            sigma_k[k_count][k][l] = sigma_new(k, l) + sigma_new(k, l) * ((data_length / k_count_used) / data_length);
           }
         }
       }
@@ -411,13 +490,37 @@ List gibbs(const int data_length, const int dim, const RcppGSL::matrix<double> &
     for(int j = 0;j <= k_count; j++){
       if(n_k[j] > 3){
         k_count_used = k_count_used + 1;
+        count = 0;
         RcppGSL::matrix<double> sigma_v_in(dim, dim);
+        RcppGSL::matrix<double> data_k(n_k[j], dim);
+        for(int k = 0; k < data_length; k++){
+          if(z(t, k) == j){
+            RcppGSL::vector_view<double> data_k_row = gsl_matrix_row(data, k);
+            gsl_matrix_set_row(data_k, count, data_k_row);
+            count = count + 1;
+          }
+        }
         for(int k = 0; k < dim; k++){
-          double k_mean = cal_mean(data, dim, j, z, t, k);
-          mu_k[j][k] = k_mean;
+          double col[n_k[j]];
+          RcppGSL::vector_view<double> col_view = gsl_matrix_column(data_k, k);
+          for(int l = 0; l < n_k[j]; l++){
+            col[l] = col_view[l];
+          }
+          double mean = gsl_stats_mean(col, 1, n_k[j]);
+          mu_k[j][k] = mean;
+        }
+        for(int k = 0; k < dim; k++){
           for(int l = 0; l < dim; l++){
-            double l_mean = cal_mean(data, dim, j, z, t, l);
-            sigma_v_in(k, l) = cal_cov(data, dim, j, z, t, k, l, k_mean, l_mean);
+            RcppGSL::vector_view<double> col_view_k = gsl_matrix_column(data_k, k);
+            RcppGSL::vector_view<double> col_view_l = gsl_matrix_column(data_k, l);
+            double col_k[n_k[j]];
+            double col_l[n_k[j]];
+            for(int m = 0; m < n_k[j]; m++){
+              col_k[m] = col_view_k[m];
+              col_l[m] = col_view_l[m];
+            }
+            double cov = gsl_stats_covariance(col_k, 1,col_l, 1, n_k[j]);
+            sigma_v_in(k, l) = cov;
             sigma_v_in(k, l) = sigma_v_in(k, l) +  sigma_v_in(k, l) * (n_k[j] / data_length);
             sigma_new(k, l) = sigma_new(k, l) + sigma_v_in(k, l);
           }
@@ -432,29 +535,107 @@ List gibbs(const int data_length, const int dim, const RcppGSL::matrix<double> &
         for (int k = 0; k < dim; k++) {
           if(eval[k] <= 0){
             flag = 1;
-            Rcout << "Warning: the covariance-matrix is not positive definite." << "\n";
+            Rcout << "Warning:" << j << "th cluster's covariance-matrix is not positive definite." << "\n";
             for(int l = 0; l < dim; l++){
               for(int m = 0; m < dim; m++){
-                if(k_count_used_before == 0){
-                  k_count_used_before = 1;
-                }
-                sigma_k[j][l][m] = sigma_new(l, m) / k_count_used_before + (sigma_new(l, m) / k_count_used_before) * ((data_length / k_count_used_before) / data_length);
+                sigma_k[j][l][m] = sigma_new_mem(l, m);
               }
             }
           }
         }
+        data_k.free();
         eval.free();
         evec.free();
         if(flag == 0){
-          gsl_linalg_cholesky_decomp(sigma_v_in);
+          RcppGSL::matrix<double> L(dim, dim);
+          double s;
+          for (int i_in = 0; i_in < dim; i_in++) {
+            for (int j_in = 0; j_in < i_in; j_in++) {
+              s = sigma_v_in(i_in,j_in);
+              for (int k_in = 0; k_in < j_in; k_in++){
+                s = s - L(i_in,k_in) * L(j_in,k_in);
+              }
+              L(i_in,j_in) = s / L(j_in,j_in);
+            }
+            s = sigma_v_in(i_in,i_in);
+            for (int k_in = 0; k_in < i_in; k_in++){
+              double L_in = L(i_in, k_in);
+              s = s - pow(L_in, 2.0);
+            }
+            L(i_in,i_in) = sqrt(s);
+          }
           for(int k = 0; k < dim; k++){
-            for(int l =0; l < dim; l++){
-              sigma_k[j][k][l] = sigma_v_in(k, l);
+            for(int l = k + 1; l < dim; l++){
+              L(k, l) = 0;
             }
           }
+          for(int k = 0; k < dim; k++){
+            for(int l = 0; l < dim; l++){
+              sigma_k[j][k][l] = L(k, l);
+            }
+          }
+          L.free();          
         }
         sigma_v_in.free();
       }
+    }
+    if(k_count_used == 0){
+      k_count_used = 1;
+    }
+    for(int j = 0; j < dim; j++){
+      for(int k = 0; k < dim; k++){
+        sigma_new(j, k) = sigma_new(j, k) / k_count_used;
+      }
+    }
+    RcppGSL::vector<double> eval(dim);
+    RcppGSL::Matrix evec(dim, dim);
+    gsl_eigen_symmv_workspace * w = gsl_eigen_symmv_alloc(dim);
+    gsl_eigen_symmv(sigma_new, eval, evec, w);
+    gsl_eigen_symmv_free(w);
+    gsl_eigen_symmv_sort(eval, evec, GSL_EIGEN_SORT_ABS_ASC); 
+    int flag = 0;
+    for (int k = 0; k < dim; k++) {
+      if(eval[k] <= 0){
+        flag = 1;
+        Rcout << "Warning: sigma_new's covariance-matrix is not positive definite." << "\n";
+        for(int l = 0; l < dim; l++){
+          for(int m = 0; m < dim; m++){
+            sigma_new(l, m) = sigma_new_mem(l, m);
+          }
+        }
+      }
+    }
+    eval.free();
+    evec.free();
+    if(flag == 0){
+      RcppGSL::matrix<double> L(dim, dim);
+      double s;
+      for (int i_in = 0; i_in < dim; i_in++) {
+        for (int j_in = 0; j_in < i_in; j_in++) {
+          s = sigma_new(i_in,j_in);
+          for (int k_in = 0; k_in < j_in; k_in++){
+            s = s - L(i_in,k_in) * L(j_in,k_in);
+          }
+          L(i_in,j_in) = s / L(j_in,j_in);
+        }
+        s = sigma_new(i_in,i_in);
+        for (int k_in = 0; k_in < i_in; k_in++){
+          double L_in = L(i_in, k_in);
+          s = s - pow(L_in, 2.0);
+        }
+        L(i_in,i_in) = sqrt(s);
+      }
+      for(int k = 0; k < dim; k++){
+        for(int l = k + 1; l < dim; l++){
+          L(k, l) = 0;
+        }
+      }
+      for(int k = 0; k < dim; k++){
+        for(int l = 0; l < dim; l++){
+          sigma_new(k, l) = L(k, l);
+        }
+      }
+      L.free();
     }
     Rcout << "iteration : " << t + 1 << "\n";
   }
@@ -479,7 +660,7 @@ List gibbs(const int data_length, const int dim, const RcppGSL::matrix<double> &
       }
     }
   }
-  RcppGSL::vector<double> n_k_result(k_count + 1);
+  RcppGSL::vector<int> n_k_result(k_count + 1);
   for(int i = 0; i <= k_count; i++){
     n_k_result[i] = 0;
   }
@@ -501,21 +682,44 @@ List gibbs(const int data_length, const int dim, const RcppGSL::matrix<double> &
     sigma_result.push_back(std::vector<std::vector<double>>(dim, std::vector<double>(dim)));
   }
   for(int i = 0; i <= k_count; i++){
-    if(n_k_result[i] >= 1){
+    int n_k_result_in = n_k_result[i];
+    if(n_k_result_in >= 1){
+      count = 0;
+      RcppGSL::matrix<double> data_k(n_k_result_in, dim);
+      for(int j = 0; j < data_length; j++){
+        if(max[j] == i){
+          RcppGSL::vector_view<double> data_k_row = gsl_matrix_row(data, j);
+          gsl_matrix_set_row(data_k, count, data_k_row);
+          count = count + 1;
+        }
+      }
       for(int j = 0; j < dim; j++){
-        for(int k = 0; k < dim; k++){
-          if(j <= k){
-            double j_mean = cal_mean_result(data_result, dim, i, max, j);
-            double k_mean = cal_mean_result(data_result, dim, i, max, k);
-            mu_result[i][j] = j_mean;
-            mu_result[i][k] = k_mean;
-            sigma_result[i][j][k] = cal_cov_result(data_result, dim, i, max, j, k, j_mean, k_mean);
-            sigma_result[i][k][j] = cal_cov_result(data_result, dim, i, max, j, k, j_mean, k_mean);
+        double col[n_k_result_in];
+        RcppGSL::vector_view<double> col_view = gsl_matrix_column(data_k, j);
+        for(int k = 0; k < n_k_result_in; k++){
+          col[k] = col_view[k];
+        }
+        double mean = gsl_stats_mean(col, 1, n_k_result_in);
+        mu_result[i][j] = mean;
+      }
+      for(int k = 0; k < dim; k++){
+        for(int l = 0; l < dim; l++){
+          RcppGSL::vector_view<double> col_view_k = gsl_matrix_column(data_k, k);
+          RcppGSL::vector_view<double> col_view_l = gsl_matrix_column(data_k, l);
+          double col_k[n_k_result_in];
+          double col_l[n_k_result_in];
+          for(int m = 0; m < n_k_result_in; m++){
+            col_k[m] = col_view_k[m];
+            col_l[m] = col_view_l[m];
           }
+          double cov = gsl_stats_covariance(col_k, 1,col_l, 1, n_k_result_in);
+          sigma_result[i][k][l] = cov;
+          sigma_result[i][l][k] = cov;
         }
       }
     }
   }
+
   count = 0;
   for(int i = 0; i <= k_count; i++){
     if(n_k_result[i] >= 1){

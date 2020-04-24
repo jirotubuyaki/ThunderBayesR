@@ -5,15 +5,15 @@
 
 ## NEWS  
 1.4 (2020-04-12)  
-  * We implemented by Rcpp. We change main methods.  
-  * we delete mu_0 and sigma_table and ro_0 parameters in crp_train method.  
-  * we change a data parameter of a matrix type into type of a data.frame in crp_train method.  
-  * we change return parameters in crp_train method.  
-  * we add a plot parameter of logical type in order to plot clustering result in crp_train method.   
-  * we add crp_plot_z method.  
+  * Implemented by Rcpp. We change main methods.  
+  * Delete mu_0 and sigma_table and ro_0 parameters in crp_train method.  
+  * Change a data parameter of a matrix type into type of a data.frame in crp_train method.  
+  * Change return parameters in crp_train method.  
+  * Add a plot parameter of logical type in order to plot clustering result in crp_train method.   
+  * Add crp_plot_z method.  
   
 1.3 (2018-08-01)  
-  * we implemented by Scala. We change main methods.  
+  * Implemented by Scala. We change main methods.  
   
 
 ## Abstract

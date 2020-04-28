@@ -3,6 +3,4 @@ before_install:
 
 language: r
 
-r_github_packages: hadley/devtools
-
 cache: packages

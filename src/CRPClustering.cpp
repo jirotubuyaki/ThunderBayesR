@@ -184,7 +184,7 @@ List gibbs(const int data_length, const int dim, const RcppGSL::matrix<double> &
         mu_k_v_in.free();
         double prob_k_CRP = n_k[j] / (data_length - 1 + alpha);
         prob_k[j] = prob_k_tmp * prob_k_CRP;
-        if(isnan(prob_k_tmp)){
+        if(std::isnan(prob_k_tmp)){
           prob_k[j] = 0;
           Rcout << "Warning: "<< j << "th cluster's probability is zero.\n";
         }
@@ -207,7 +207,7 @@ List gibbs(const int data_length, const int dim, const RcppGSL::matrix<double> &
       mu_k_v_in.free();
       double prob_k_CRP = alpha / (data_length - 1 + alpha);
       prob_k[k_count + 1] = prob_k_tmp * prob_k_CRP;
-      if(isnan(prob_k_tmp)){
+      if(std::isnan(prob_k_tmp)){
         prob_k[k_count + 1] = 0;
         Rcout << "Warning: "<< k_count + 1 << "th cluster's probability is zero.\n";
       }
@@ -431,7 +431,7 @@ List gibbs(const int data_length, const int dim, const RcppGSL::matrix<double> &
           sigma_v_in.free();
           double prob_k_CRP = n_k[j] / (data_length - 1 + alpha);
           prob_k[j] = prob_k_tmp * prob_k_CRP; 
-          if(isnan(prob_k_tmp)){
+          if(std::isnan(prob_k_tmp)){
             prob_k[j] = 0;
             Rcout << "Warning: "<< j << "th cluster's probability is zero.\n";
           }
@@ -447,7 +447,7 @@ List gibbs(const int data_length, const int dim, const RcppGSL::matrix<double> &
       data_v_in.free();
       double prob_k_CRP = alpha / (data_length - 1 + alpha);
       prob_k[k_count + 1] = prob_k_tmp * prob_k_CRP;
-      if(isnan(prob_k_tmp)){
+      if(std::isnan(prob_k_tmp)){
         prob_k[k_count + 1] = 0;
         Rcout << "Warning: "<< k_count + 1 << "th cluster's probability is zero.\n";
       }

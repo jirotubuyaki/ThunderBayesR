@@ -9,7 +9,7 @@ Authors@R: c(
 Author: Masashi Okada [aut, cre]
 Maintainer: Masashi Okada <okadaalgorithm@gmail.com>
 Description: Chinese restaurant process [Pitman (1995) <doi:10.1007/BF01213386>] is used in order to compose Dirichlet process [Ferguson (1973) <doi:10.1214/aos/1176342360>]. The clustering which uses Chinese restaurant process does not need to decide the number of clusters in advance. This algorithm automatically adjusts it. And this package calculates the ambiguity of clusters as entropy [Yngvason (1999) <doi:10.1016/S0370-1573(98)00082-9>].
-Depends: R (>= 3.6.3)
+Depends: R (>= 3.6.0)
 License: GPL (>= 2)
 LinkingTo: Rcpp, RcppGSL
 Imports: Rcpp, RcppGSL, graphics, utils, png, ggplot2, GGally, mvtnorm, MASS, matrixcalc, R.rsp

@@ -1,3 +1,6 @@
+before_install:
+  - sudo apt install libgsl-dev
+
 language: r
 
 r_github_packages: hadley/devtools

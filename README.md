@@ -4,7 +4,7 @@
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/CRPClustering)](http://cran.r-project.org/package=CRPClustering)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/CRPClustering)](http://cran.rstudio.com/web/packages/CRPClustering/index.html)
 
-## NEWS  
+## News 
 1.4 (2020-04-12)  
   * Implemented by Rcpp. We changed main methods.  
   * "mu_0" and "sigma_table" and "ro_0" arguments were deleted in "crp_train" method.  
@@ -49,7 +49,7 @@ ii) Calculating parameters for each k (k = 1,2, ・・・,∞)
 Iterations i) ii) continue by iteration number, and Σ k is a variance-covariance matrix of kth cluster. Cov is covariance. i and j are rows and columns’ number of Σ k ij and Σ new ij . First several durations of iterations which are called as burn_in are error ranges. For that reason, burn_in durations are abandoned.
 
 ### Clusters Entropy
-Entropy denotes the ambiguity of clustering. As a result of a simulation, data x_i joins in a particular table. From the total numbers n_k of the particular table k at the last iteration, a probability p_k at each cluster k is calculated. The entropy equation is given by
+Entropy denotes the ambiguity of clustering. As a result of a simulation, data x i joins in a particular cluster. From the total numbers n k of the particular cluster k at the last iteration, a probability p k at each cluster k is calculated. The entropy equation is given by
 
 ![equa](./readme_images/equation_4.png "eque")
 

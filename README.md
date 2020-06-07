@@ -3,8 +3,6 @@
 [![Build Status](https://travis-ci.org/jirotubuyaki/CRPClustering.svg?branch=master)](https://travis-ci.org/jirotubuyaki/CRPClustering)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/CRPClustering)](http://cran.r-project.org/package=CRPClustering)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/CRPClustering)](http://cran.rstudio.com/web/packages/CRPClustering/index.html)
-## Now Under Construction
- Please wait a new version 1.4
 
 ## News 
 1.4 (2020-04-12)  

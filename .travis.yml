@@ -1,7 +1,7 @@
 dist: bionic
 
 before_install:
-  - sudo apt install gsl-bin
+  - sudo apt install libgsl-dev
 
 language: r
 

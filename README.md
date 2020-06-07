@@ -4,6 +4,7 @@
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/CRPClustering)](http://cran.r-project.org/package=CRPClustering)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/CRPClustering)](http://cran.rstudio.com/web/packages/CRPClustering/index.html)
 
+
 ## News 
 1.4 (2020-04-12)  
   * Implemented by Rcpp. We changed main methods.  

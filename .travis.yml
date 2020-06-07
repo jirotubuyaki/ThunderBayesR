@@ -1,5 +1,7 @@
+dist: bionic
+
 before_install:
-  - sudo apt install libgsl23
+  - sudo apt install libgsl-dev
 
 language: r
 

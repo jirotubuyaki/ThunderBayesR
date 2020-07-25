@@ -33,6 +33,8 @@
 #include <gsl/gsl_linalg.h>
 #include <gsl/gsl_statistics_double.h>
 #include <gsl/gsl_statistics_int.h>
+#include <gsl/gsl_statistics.h>
+#include <gsl/gsl_cdf.h>
 
 using namespace Rcpp;
 

@@ -2,13 +2,12 @@
   <img src="https://jirotubuyaki.github.io/gimp/thunderR.png" width="280px" alt="thunder"/>
 </p>
 
-# ThunderBayesR: An R Package for Bayesian Nonparametric Clustering Algorithms
+![GitHub](https://img.shields.io/github/license/jirotubuyaki/ThunderBayesR)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/jirotubuyaki/ThunderBayes)
 
-[![](http://cranlogs.r-pkg.org/badges/grand-total/CRPClustering)](http://cran.rstudio.com/web/packages/CRPClustering/index.html)
-
-
-## News 
-0.1.0 (2022-06-30)
+# ThunderBayesR
+## News
+Prepare for the new alpha release (2022-06-30) 
   * Change package name and the concept. Please wait a new alpha version. Current contents are Previous CRPClustering.
   * We will implement by Julia.
   
@@ -22,7 +21,10 @@
   
 1.3 (2018-08-01)  
   * Implemented by Scala. We changed main methods.  
-  
+
+
+
+# Bayesian Nonparametric Clustering Algorithms
 
 ## Abstract
 Clustering is a scientific method which finds the clusters of data and many related methods are traditionally researched. Bayesian nonparametrics is statistics which can treat models having infinite parameters. Chinese restaurant process is used in order to compose Dirichlet process. The clustering which uses Chinese restaurant process does not need to decide the number of clusters in advance. This algorithm automatically adjusts it. Then, this package can calculate clusters in addition to entropy as the ambiguity of clusters.

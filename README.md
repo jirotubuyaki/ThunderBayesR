@@ -1,9 +1,13 @@
-# CRPClustering: An R Package for Bayesian Nonparametric Chinese Restaurant Process Clustering with Entropy 
+# ThunderBayesR: An R Package for Bayesian Nonparametric Clustering Algorithms
 
 [![](http://cranlogs.r-pkg.org/badges/grand-total/CRPClustering)](http://cran.rstudio.com/web/packages/CRPClustering/index.html)
 
 
 ## News 
+0.1.0 (2022-06-30)
+  * Change package name and the concept. Please wait a new alpha version. Current contents are Previous CRPClustering.
+  * We will implement by Julia.
+  
 1.4 (2020-04-12)  
   * Implemented by Rcpp. We changed main methods.  
   * "mu_0" and "sigma_table" and "ro_0" arguments were deleted in "crp_train" method.  

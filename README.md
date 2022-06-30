@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://jirotubuyaki.github.io/gimp/thunderR.png" width="280px" alt="thunder"/>
+</p>
+
 # ThunderBayesR: An R Package for Bayesian Nonparametric Clustering Algorithms
 
 [![](http://cranlogs.r-pkg.org/badges/grand-total/CRPClustering)](http://cran.rstudio.com/web/packages/CRPClustering/index.html)
